@@ -216,7 +216,63 @@ CREATE TABLE agent_activity (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
--- 10. INDEXES für Performance
+-- 10. AD CAMPAIGNS — Bezahlte Werbekampagnen für Clients
+-- ============================================================
+CREATE TABLE ad_campaigns (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  client_id UUID REFERENCES clients(id) NOT NULL,
+  title TEXT NOT NULL,
+  platform TEXT NOT NULL,              -- meta, tiktok, google
+  objective TEXT,                      -- awareness, traffic, conversions, leads
+  status TEXT DEFAULT 'draft',         -- draft, active, paused, completed
+  budget_total DECIMAL(10,2),
+  budget_daily DECIMAL(10,2),
+  start_date DATE,
+  end_date DATE,
+  target_audience JSONB DEFAULT '{}',  -- age_min/max, interests, locations, gender
+  ad_creatives JSONB DEFAULT '[]',     -- [{ type, url, headline, description }]
+  assigned_agent TEXT DEFAULT 'larry' REFERENCES agents(id),
+  notes TEXT,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- 11. AD PERFORMANCE — Tägliche Metriken pro Kampagne
+-- ============================================================
+CREATE TABLE ad_performance (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  campaign_id UUID REFERENCES ad_campaigns(id) ON DELETE CASCADE NOT NULL,
+  date DATE NOT NULL,
+  impressions INTEGER DEFAULT 0,
+  reach INTEGER DEFAULT 0,
+  clicks INTEGER DEFAULT 0,
+  spend DECIMAL(10,2) DEFAULT 0,
+  leads INTEGER DEFAULT 0,
+  conversions INTEGER DEFAULT 0,
+  cpm DECIMAL(10,4),                   -- Cost per 1000 impressions
+  cpc DECIMAL(10,4),                   -- Cost per click
+  ctr DECIMAL(6,4),                    -- Click-through rate
+  metadata JSONB DEFAULT '{}',
+  created_at TIMESTAMPTZ DEFAULT now(),
+  UNIQUE(campaign_id, date)
+);
+
+-- Default Ads SOP
+INSERT INTO sops (title, category, description, owner_agent, steps) VALUES
+  ('Meta Ads Kampagne starten', 'content',
+   'Vollständiger Workflow: Briefing → Creatives → Launch → Reporting', 'larry',
+   '[
+     {"step": 1, "title": "Client-Ziel definieren", "detail": "Was soll die Kampagne erreichen? Awareness, Leads, Traffic, Verkäufe?"},
+     {"step": 2, "title": "Zielgruppe festlegen", "detail": "Alter, Interessen, Standort (Hannover + Umland), Lookalike Audience wenn möglich"},
+     {"step": 3, "title": "Budget & Laufzeit planen", "detail": "Tagesbudget und Gesamtbudget, Start- und Enddatum festlegen"},
+     {"step": 4, "title": "Ad Creatives erstellen", "detail": "Quilly erstellt Hooks, Headlines, Captions. Mindestens 2-3 Varianten (A/B Test)"},
+     {"step": 5, "title": "Kampagne in Supabase anlegen", "detail": "ad_campaigns Eintrag erstellen mit allen Details"},
+     {"step": 6, "title": "Kampagne live schalten", "detail": "Im Meta Ads Manager / TikTok Ads Manager einrichten und aktivieren"},
+     {"step": 7, "title": "Performance täglich tracken", "detail": "ad_performance Tabelle täglich mit Metriken befüllen"},
+     {"step": 8, "title": "Wochenbericht für Client", "detail": "Ovi erstellt Weekly Report mit Kampagnen-Performance und Optimierungsempfehlungen"}
+   ]'::jsonb);
+
+-- 12. INDEXES für Performance
 -- ============================================================
 CREATE INDEX idx_tasks_status ON tasks(status);
 CREATE INDEX idx_tasks_agent ON tasks(assigned_agent);
@@ -228,8 +284,12 @@ CREATE INDEX idx_messages_conversation ON messages(conversation_id);
 CREATE INDEX idx_prospects_stage ON prospects(stage);
 CREATE INDEX idx_agent_activity_agent ON agent_activity(agent_id);
 CREATE INDEX idx_agent_activity_created ON agent_activity(created_at DESC);
+CREATE INDEX idx_ad_campaigns_client ON ad_campaigns(client_id);
+CREATE INDEX idx_ad_campaigns_status ON ad_campaigns(status);
+CREATE INDEX idx_ad_performance_campaign ON ad_performance(campaign_id);
+CREATE INDEX idx_ad_performance_date ON ad_performance(date DESC);
 
--- 11. UPDATED_AT TRIGGER
+-- 13. UPDATED_AT TRIGGER
 -- ============================================================
 CREATE OR REPLACE FUNCTION update_updated_at()
 RETURNS TRIGGER AS $$
@@ -252,6 +312,8 @@ CREATE TRIGGER update_conversations_updated_at BEFORE UPDATE ON conversations
 CREATE TRIGGER update_prospects_updated_at BEFORE UPDATE ON prospects
   FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 CREATE TRIGGER update_sops_updated_at BEFORE UPDATE ON sops
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+CREATE TRIGGER update_ad_campaigns_updated_at BEFORE UPDATE ON ad_campaigns
   FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 
 -- ============================================================
