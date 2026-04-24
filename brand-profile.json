@@ -1,55 +1,56 @@
 {
   "schema_version": "1.0",
   "brand_name": "Smuuve",
-  "website_url": "https://smuuve.de",
+  "website_url": "https://smuuve.myshopify.com",
   "extracted_at": "2026-04-24T00:00:00Z",
-  "extraction_notes": "Website returned 503 during extraction. Profile based on TikTok content, Instagram bio, search metadata, and customer reviews. Color/typography confidence: LOW — validate against live site.",
+  "extraction_notes": "Extracted from smuuve.myshopify.com. Colors inferred from product packaging imagery (MEDIUM confidence) — validate hex values against live CSS when site is fully stable.",
 
   "voice": {
-    "formal_casual": 8,
-    "rational_emotional": 7,
-    "playful_serious": 5,
-    "bold_subtle": 7,
+    "formal_casual": 7,
+    "rational_emotional": 6,
+    "playful_serious": 4,
+    "bold_subtle": 9,
     "traditional_innovative": 8,
     "expert_accessible": 4,
-    "descriptors": ["aspirational", "naturverbunden", "empowernd"]
+    "descriptors": ["bold", "premium-natürlich", "transformativ"]
   },
 
   "colors": {
-    "primary": null,
-    "secondary": [],
+    "primary": "#C4960A",
+    "secondary": ["#FFFFFF", "#F5F0E8"],
     "forbidden": ["neon colors", "harsh industrial tones", "dark/grungy palettes"],
-    "background": null,
-    "text": null,
-    "confidence": "LOW — website unavailable during extraction. Expected palette: white/cream background, soft greens or earthy tones typical of organic beauty DTC brands."
+    "background": "#FFFFFF",
+    "text": "#333333",
+    "confidence": "MEDIUM — inferred from product packaging (gold metallic bottles, white background). Validate hex against live CSS when site is stable."
   },
 
   "typography": {
     "heading_font": null,
     "body_font": null,
-    "pairing_descriptor": "Google Fonts not extractable — website unavailable. Likely clean modern sans-serif."
+    "pairing_descriptor": "Google Fonts not extractable — likely clean modern sans-serif. Validate when site CSS is accessible."
   },
 
   "imagery": {
-    "style": "professional photography mixed with UGC (user-generated content)",
+    "style": "clean studio product photography + warm lifestyle",
     "subjects": [
-      "hair transformation before/after",
-      "women with smooth/straight hair",
-      "natural ingredients (guarana, coconut, Brazil nuts)",
-      "clean product flat-lay shots",
-      "influencer application tutorials"
+      "gold metallic spray bottles on white background",
+      "woman with long straight blonde hair",
+      "warm natural settings (sunflowers, golden light)",
+      "before/after hair transformation",
+      "influencer application tutorials",
+      "ingredient close-ups"
     ],
-    "composition": "clean backgrounds, natural light, sensory close-ups of hair texture",
+    "composition": "minimal white backgrounds, soft shadows, generous negative space; lifestyle shots warm and golden",
     "forbidden": [
       "before/after with unqualified medical claims",
       "harsh chemical imagery",
-      "overly processed/fake-looking results",
+      "dark/grungy aesthetics",
       "male-focused imagery"
     ]
   },
 
   "aesthetic": {
-    "mood_keywords": ["clean", "natürlich", "transformativ", "seidig", "leicht"],
+    "mood_keywords": ["premium", "clean", "golden", "transformativ", "natürlich"],
     "texture": "minimal",
     "negative_space": "generous"
   },
@@ -82,10 +83,18 @@
   },
 
   "products": {
-    "hero": "SMUUVE All-in-One Set (Smoothing Spray + Shampoo + Conditioner + Protection Spray)",
-    "key_ingredients": ["Guarana", "Kokosnuss", "Paranuss", "Cashew", "Pitanga", "Traube", "Balsamico"],
+    "hero": "SMUUVE Probe Kit (€74,95) — Smoothing Spray + Shampoo + Conditioner + Protection Spray",
+    "lineup": [
+      { "name": "Probe Kit", "price": "€74,95", "reviews": 77 },
+      { "name": "All-in-One Set", "price": "€84,95", "reviews": 1 },
+      { "name": "Smoothing Spray", "price": "€44,95", "reviews": 19 },
+      { "name": "Shampoo & Conditioner", "price": "€19,95", "reviews": 15 },
+      { "name": "Protection Spray", "price": "€16,95", "reviews": 22 }
+    ],
+    "key_ingredients": ["Guarana", "Kokosnuss", "Paranuss", "Cashew", "Pitanga", "Traube", "Balsamico", "Kaffee", "Tamarinde"],
     "key_claim": "Seidig glattes Haar bis zu 3+ Monate — 100% vegan, bio, cruelty-free",
-    "price_point": "mid-range DTC (Shopify)",
+    "guarantee": "100% Ergebnisgarantie",
+    "shipping": "Kostenloser Versand",
     "shop": "smuuve.myshopify.com"
   },
 
@@ -102,11 +111,13 @@
     "primary_objective": "conversions (Shopify purchases)",
     "secondary_objective": "awareness + social proof",
     "key_hooks": [
+      "NIE WIEDER BAD HAIR DAYS!",
       "Verabschiede dich von Frizz — für immer",
       "Erlebe die Verwandlung in 60 Minuten",
       "Salon-Glättung zuhause — ohne Chemie",
       "Warum ich meinen Friseur nicht mehr brauche"
     ],
-    "review_score": "4.9/5 (136+ Bewertungen)"
+    "review_score": "4.9/5 (136+ Bewertungen)",
+    "trust_signals": ["100% Ergebnisgarantie", "77+ Bewertungen Probe Kit", "kostenloser Versand", "Klarna/PayPal verfügbar"]
   }
 }
