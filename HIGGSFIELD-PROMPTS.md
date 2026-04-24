@@ -69,34 +69,28 @@ Glattes Haar — 3 Monate lang
 ## AD 02 — "VORHER / NACHHER TRANSFORMATION" (TikTok + Meta Reels)
 
 **Strategie:** BAB — Before/After/Bridge
-**Format:** Cinematic Product Demo, 9:16, 20-30 Sekunden
+**Format:** Cinematic Product Demo, 9:16, 15 Sekunden
 **Plattform:** TikTok In-Feed (Spark Ad wenn organisch vorhanden) + Meta Reels
 **Ziel:** Awareness + Consideration
 
 ### Higgsfield Prompt:
 ```
 Mode: Cinematic / CGI Product Showcase
-Format: 9:16 vertical, 20-25 seconds
+Format: 9:16 vertical, 15 seconds
 Language: German (on-screen text only, no voiceover needed — add music)
 Style: Premium, warm golden tones, clean aesthetic
 
 Scene structure:
-[0-5s] BEFORE — Close-up of visibly frizzy, unruly hair in humid environment.
-  Natural, slightly desaturated color. On-screen text overlay (safe zone):
-  "Jeden Morgen dasselbe Chaos."
-[5-10s] TRANSITION — Smuuve gold spray bottle in slow motion,
-  product spinning 360°, gleaming in warm golden light.
-  Background: clean white/cream. Droplets of product catching light.
-  Brand name "smuuve" appears in elegant white serif font.
-[10-20s] AFTER — Same woman, dramatically smooth, shiny hair,
-  running fingers through it effortlessly. Warm sunlit setting (sunflowers optional).
-  Color grading: warm, golden, luminous. Hair has mirror-like shine.
+[0-4s] BEFORE — Close-up of visibly frizzy, unruly hair.
+  Slightly desaturated. On-screen text: "Jeden Morgen dasselbe Chaos."
+[4-9s] TRANSITION — Smuuve gold spray bottle slow motion, spinning 360°,
+  gleaming in warm golden light. Background: clean white/cream.
+  Brand name "smuuve" appears in elegant white font.
+[9-13s] AFTER — Same woman, dramatically smooth shiny hair,
+  running fingers through it effortlessly. Warm golden light.
   On-screen text: "3 Monate. Einmal anwenden. Fertig."
-[20-25s] PRODUCT SHOT — All 4 Smuuve bottles arranged on marble surface.
-  Gold packaging gleaming. Text fades in:
-  "SMUUVE — Das erste vegane Keratin zuhause"
-  "Probe Kit ab €74,95 | kostenloser Versand"
-  CTA button: "Jetzt entdecken"
+[13-15s] PRODUCT SHOT — All 4 bottles on marble surface.
+  Text: "Probe Kit €74,95 | kostenloser Versand"
 
 Color palette: Gold #C4960A, White #FFFFFF, Warm cream #F5F0E8
 Forbidden: Blue/cold tones, dark backgrounds, busy backgrounds
@@ -123,7 +117,7 @@ Deine Haarglättung für zuhause
 ## AD 03 — "FRISEURIN EMPFIEHLT" (TikTok Spark Ad + Meta)
 
 **Strategie:** Star-Story-Solution — Social Proof / Authority
-**Format:** UGC Testimonial, 9:16, 25-30 Sekunden
+**Format:** UGC Testimonial, 9:16, 15 Sekunden
 **Plattform:** TikTok (als Spark Ad boosten oder neu generieren) + Meta Feed
 **Ziel:** Trust Building → Conversion
 
@@ -131,28 +125,23 @@ Deine Haarglättung für zuhause
 ```
 Mode: UGC
 Avatar: Woman, 30-38 years old, professional look,
-        hairdresser/beauty professional aesthetic,
-        salon or home studio background
+        hairdresser/beauty aesthetic, salon or home studio background
 Language: German (Deutsch), authentic and slightly professional tone
-Duration: 25-30 seconds
+Duration: 15 seconds
 
 Script:
 [0-4s] Hook — She holds Smuuve bottle toward camera, eyebrows raised:
-  "Als Friseurin sage ich euch: Das ist das Beste was ich je für zuhause gesehen habe."
-[4-12s] Story — She gestures, explains:
-  "Salonbehandlungen kosten 250-400€. Und halten vielleicht 2 Monate.
-   Smuuve macht dasselbe — vegan, ohne Formaldehyd, für 74 Euro."
-[12-20s] Demo — Quick shot: applying spray to hair section,
-  then combing through, showing immediate texture change.
-  "Eine Anwendung. Haare wäscht ihr direkt danach — kein 3-Tage-Warten."
-[20-27s] Solution close — She smiles, holds bottle:
-  "Ich empfehle es meinen Kunden die Salon-Preise sparen wollen.
-   4,9 Sterne. Über 100 Bewertungen. Link im Bio."
-[27-30s] Product close-up: All 4 bottles, gold on white background.
+  "Als Friseurin: Das ist die beste At-Home-Glättung die ich kenne."
+[4-10s] Story — She gestures:
+  "Salon kostet 300€. Smuuve macht dasselbe — vegan, ohne Chemie, für 74€.
+   Hält 3 Monate."
+[10-13s] Close — She smiles, holds bottle up:
+  "4,9 Sterne. Über 100 Bewertungen. Ich empfehle es."
+[13-15s] Product close-up: All 4 bottles, gold on white background.
 
-Visual style: Warm, professional but approachable, good lighting,
+Visual style: Warm, professional but approachable,
               looks like authentic TikTok content, NOT an ad
-Product: Smuuve gold bottle in hand throughout most of video
+Product: Smuuve gold bottle in hand throughout
 ```
 
 ### Ad Copy (TikTok — max 100 Zeichen):
@@ -175,36 +164,32 @@ Was Friseurinnen über Smuuve sagen: "Wie ein Salon — aber zuhause und für 74
 ## AD 04 — "TUTORIAL" (TikTok Native)
 
 **Strategie:** FAB — Features/Advantages/Benefits (Produktdemo)
-**Format:** UGC Tutorial, 9:16, 30-45 Sekunden
+**Format:** UGC Tutorial, 9:16, 15 Sekunden
 **Plattform:** TikTok primär (nativ), Meta Reels sekundär
 **Ziel:** Consideration + Conversion
 
 ### Higgsfield Prompt:
 ```
 Mode: UGC Tutorial
-Avatar: Woman, 24-32, relatable, casual home setting (bathroom/bedroom),
+Avatar: Woman, 24-32, relatable, casual bathroom/bedroom setting,
         natural hair at start (slightly frizzy/wavy)
 Language: German (Deutsch)
-Duration: 35-40 seconds
+Duration: 15 seconds
 
 Script:
-[0-4s] Hook — She holds Smuuve box, excited:
-  "Ich zeige euch wie einfach Smuuve wirklich ist."
-[4-14s] Step 1 — Shows Smoothing Spray bottle, applies to damp hair sections:
-  "Schritt 1: Smoothing Spray auf feuchtes Haar — von Wurzel bis Spitze."
-[14-22s] Step 2 — Using hair dryer + flat iron (show briefly):
-  "Schritt 2: Trocknen und glätten — normal wie immer."
-  Text overlay: "✓ Kein 3-Tage-Warten nötig"
-[22-30s] Result — Close-up of incredibly smooth, shiny hair,
-  she runs fingers through it effortlessly, looks in mirror, smiles:
-  "Und so bleibt es. Für 3 Monate."
-[30-38s] Product lineup — She holds all 4 bottles:
-  "Probe Kit: Smoothing Spray + Shampoo + Conditioner + Protection Spray.
-   74,95€. Kostenloser Versand. Link in Bio."
-  Text overlay: "100% vegan 🌱 | Formaldehyd-frei ✓ | 4.9★"
+[0-3s] Hook — She holds Smuuve spray bottle:
+  "Smuuve in 3 Schritten — dauert 5 Minuten."
+[3-7s] Apply — Sprays onto damp hair section, quick cut:
+  "Spray auftragen. Trocknen. Glätten."
+  Text overlay: "✓ Kein 3-Tage-Warten"
+[7-12s] Result — Close-up of incredibly smooth shiny hair,
+  she runs fingers through it effortlessly:
+  "Und so bleibt es. 3 Monate lang."
+[12-15s] She holds all 4 bottles toward camera:
+  "74,95€. Link in Bio."
+  Text overlay: "100% vegan 🌱 | 4.9★"
 
-Style: Bright, clean bathroom setting, warm white light,
-       authentic and helpful — educational not salesy
+Style: Bright, clean bathroom, warm white light, authentic not salesy
 Sound: Upbeat background music + voiceover
 ```
 
