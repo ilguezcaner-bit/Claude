@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0",
+  "brand_name": "Smuuve",
+  "website_url": "https://smuuve.de",
+  "extracted_at": "2026-04-24T00:00:00Z",
+  "extraction_notes": "Website returned 503 during extraction. Profile based on TikTok content, Instagram bio, search metadata, and customer reviews. Color/typography confidence: LOW — validate against live site.",
+
+  "voice": {
+    "formal_casual": 8,
+    "rational_emotional": 7,
+    "playful_serious": 5,
+    "bold_subtle": 7,
+    "traditional_innovative": 8,
+    "expert_accessible": 4,
+    "descriptors": ["aspirational", "naturverbunden", "empowernd"]
+  },
+
+  "colors": {
+    "primary": null,
+    "secondary": [],
+    "forbidden": ["neon colors", "harsh industrial tones", "dark/grungy palettes"],
+    "background": null,
+    "text": null,
+    "confidence": "LOW — website unavailable during extraction. Expected palette: white/cream background, soft greens or earthy tones typical of organic beauty DTC brands."
+  },
+
+  "typography": {
+    "heading_font": null,
+    "body_font": null,
+    "pairing_descriptor": "Google Fonts not extractable — website unavailable. Likely clean modern sans-serif."
+  },
+
+  "imagery": {
+    "style": "professional photography mixed with UGC (user-generated content)",
+    "subjects": [
+      "hair transformation before/after",
+      "women with smooth/straight hair",
+      "natural ingredients (guarana, coconut, Brazil nuts)",
+      "clean product flat-lay shots",
+      "influencer application tutorials"
+    ],
+    "composition": "clean backgrounds, natural light, sensory close-ups of hair texture",
+    "forbidden": [
+      "before/after with unqualified medical claims",
+      "harsh chemical imagery",
+      "overly processed/fake-looking results",
+      "male-focused imagery"
+    ]
+  },
+
+  "aesthetic": {
+    "mood_keywords": ["clean", "natürlich", "transformativ", "seidig", "leicht"],
+    "texture": "minimal",
+    "negative_space": "generous"
+  },
+
+  "brand_values": [
+    "vegan & cruelty-free",
+    "100% pflanzlich",
+    "salon-Qualität zuhause",
+    "keine schädlichen Chemikalien",
+    "nachhaltig"
+  ],
+
+  "target_audience": {
+    "age_range": "22-45",
+    "profession": "Frauen mit lockigem, krausichem oder widerspenstigem Haar — berufstätig, aktiv, wenig Zeit für tägliches Styling",
+    "pain_points": [
+      "tägliches Glätten kostet zu viel Zeit",
+      "teure Salonbehandlungen nicht leistbar",
+      "Angst vor chemischen Schäden",
+      "Frizz und Quellen bei Feuchtigkeit",
+      "Haar wirkt stumpf und ungepflegt"
+    ],
+    "aspirations": [
+      "müheloses, glattes Haar ohne tägliche Arbeit",
+      "Salonqualität günstig zuhause",
+      "gesundes, strahlendes Haar",
+      "mehr Selbstbewusstsein durch perfektes Haar",
+      "natürliche Schönheitspflege ohne Kompromisse"
+    ]
+  },
+
+  "products": {
+    "hero": "SMUUVE All-in-One Set (Smoothing Spray + Shampoo + Conditioner + Protection Spray)",
+    "key_ingredients": ["Guarana", "Kokosnuss", "Paranuss", "Cashew", "Pitanga", "Traube", "Balsamico"],
+    "key_claim": "Seidig glattes Haar bis zu 3+ Monate — 100% vegan, bio, cruelty-free",
+    "price_point": "mid-range DTC (Shopify)",
+    "shop": "smuuve.myshopify.com"
+  },
+
+  "social": {
+    "instagram": "@smuuve.official",
+    "tiktok": "@smuuve.de",
+    "instagram_followers": 6357,
+    "content_strategy": "influencer UGC, transformation videos, ingredient education, TikTok-native tutorials"
+  },
+
+  "ad_strategy_hints": {
+    "best_platforms": ["meta", "tiktok"],
+    "content_formats": ["before/after reels", "tutorial videos", "UGC reposts", "ingredient storytelling"],
+    "primary_objective": "conversions (Shopify purchases)",
+    "secondary_objective": "awareness + social proof",
+    "key_hooks": [
+      "Verabschiede dich von Frizz — für immer",
+      "Erlebe die Verwandlung in 60 Minuten",
+      "Salon-Glättung zuhause — ohne Chemie",
+      "Warum ich meinen Friseur nicht mehr brauche"
+    ],
+    "review_score": "4.9/5 (136+ Bewertungen)"
+  }
+}
