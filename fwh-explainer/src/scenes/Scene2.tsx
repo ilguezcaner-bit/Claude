@@ -1,109 +1,136 @@
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
+import { Character } from '../Character';
 
 export const Scene2: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const arrowX = spring({ frame, fps, from: -300, to: 0, durationInFrames: 18 });
-  const hairX = spring({ frame: Math.max(0, frame - 8), fps, from: 400, to: 0, durationInFrames: 18 });
-  const textOpacity = interpolate(frame, [20, 30], [0, 1], { extrapolateRight: 'clamp' });
+  const arrowProgress = spring({ frame, fps, from: 0, to: 1, durationInFrames: 20 });
+  const keywordOpacity = interpolate(frame, [18, 28], [0, 1], { extrapolateRight: 'clamp' });
+  const keywordScale = spring({ frame: Math.max(0, frame - 18), fps, from: 0.6, to: 1, durationInFrames: 14, config: { damping: 10 } });
+  const shake = frame > 10 ? Math.sin(frame * 2.2) * 6 * Math.max(0, 1 - (frame - 10) / 25) : 0;
 
-  // shake effect
-  const shake = frame > 20 ? Math.sin(frame * 1.8) * 4 : 0;
+  const arrowLen = 320 * arrowProgress;
 
   return (
     <AbsoluteFill style={styles.container}>
-      <AbsoluteFill style={styles.background} />
+      <AbsoluteFill style={styles.paper} />
+      <AbsoluteFill style={styles.paperTexture} />
 
-      {/* Friction Arrow */}
-      <div style={{ ...styles.arrowContainer, transform: `translateX(${arrowX}px)` }}>
-        <svg width="220" height="80" viewBox="0 0 220 80">
+      {/* Title */}
+      <div style={styles.titleBox}>
+        <p style={styles.titleText}>Mehr Reibung. Weniger Feuchtigkeit.</p>
+      </div>
+
+      {/* Character explaining */}
+      <div style={{ ...styles.charWrap, transform: `translateX(${shake}px)` }}>
+        <Character mood="explaining" scale={0.75} />
+      </div>
+
+      {/* Friction arrow graphic */}
+      <div style={styles.arrowArea}>
+        <svg width="420" height="90" viewBox="0 0 420 90">
           <defs>
-            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
-              <polygon points="0 0, 10 3.5, 0 7" fill="#FF4444" />
+            <marker id="ah" markerWidth="12" markerHeight="9" refX="12" refY="4.5" orient="auto">
+              <polygon points="0 0, 12 4.5, 0 9" fill="#E8334A" />
             </marker>
           </defs>
-          <line x1="10" y1="40" x2="195" y2="40" stroke="#FF4444" strokeWidth="6"
-            strokeDasharray="16,8" markerEnd="url(#arrowhead)" />
-          <text x="110" y="25" textAnchor="middle" fill="#FF4444" fontSize="18" fontWeight="bold"
-            fontFamily="sans-serif">REIBUNG</text>
+          <line x1="20" y1="45" x2={20 + arrowLen} y2="45"
+            stroke="#E8334A" strokeWidth="7" strokeLinecap="round"
+            markerEnd="url(#ah)" />
+          <text x="210" y="28" textAnchor="middle" fill="#E8334A"
+            fontSize="22" fontWeight="900" fontFamily="sans-serif">REIBUNG</text>
+          {/* Hair strands getting damaged */}
+          {[0, 1, 2, 3, 4].map(i => (
+            <line key={i}
+              x1={310 + i * 18} y1="60"
+              x2={310 + i * 18 + (i % 2 === 0 ? 8 : -8)} y2="85"
+              stroke="#8B4513" strokeWidth="3" strokeLinecap="round"
+              style={{ opacity: arrowProgress }} />
+          ))}
         </svg>
+        <p style={styles.arrowLabel}>Baumwolle → Haar</p>
       </div>
 
-      {/* Hair Icon */}
+      {/* Keyword */}
       <div style={{
-        ...styles.hairContainer,
-        transform: `translateX(${hairX}px) rotate(${shake}deg)`
+        ...styles.keyword,
+        opacity: keywordOpacity,
+        transform: `scale(${keywordScale})`,
       }}>
-        <div style={styles.hairIcon}>
-          <svg width="120" height="140" viewBox="0 0 120 140">
-            {/* Dry/frizzy hair strands */}
-            {[0, 15, -15, 25, -25, 10, -10].map((angle, i) => (
-              <line key={i}
-                x1="60" y1="140"
-                x2={60 + Math.sin((angle * Math.PI) / 180) * 60}
-                y2={140 - 100 + (i % 3) * 10}
-                stroke="#8B4513"
-                strokeWidth="4"
-                strokeLinecap="round"
-              />
-            ))}
-            {/* Dry indicator lines */}
-            <text x="60" y="20" textAnchor="middle" fontSize="32">💇</text>
-          </svg>
-        </div>
-        <p style={styles.hairLabel}>Trockenes Haar</p>
-      </div>
-
-      {/* Text */}
-      <div style={{ ...styles.textBox, opacity: textOpacity }}>
-        <p style={styles.textMain}>„Mehr Reibung. Weniger Feuchtigkeit."</p>
+        <p style={styles.keywordText}>REIBUNG</p>
+        <p style={styles.keywordSub}>Baumwolle schadet deinem Haar</p>
       </div>
     </AbsoluteFill>
   );
 };
 
 const styles: Record<string, React.CSSProperties> = {
-  container: { overflow: 'hidden' },
-  background: { background: 'radial-gradient(ellipse at center, #1a1a1a 0%, #0a0a0a 100%)' },
-  arrowContainer: {
-    position: 'absolute',
-    top: '38%',
-    left: '8%',
+  container: { overflow: 'hidden', background: '#f5f0eb' },
+  paper: { background: '#f0ebe4' },
+  paperTexture: {
+    backgroundImage: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, transparent 28px)',
   },
-  hairContainer: {
+  titleBox: {
     position: 'absolute',
-    top: '30%',
-    right: '8%',
-    alignItems: 'center',
+    top: 80,
+    left: 40,
+    right: 40,
+    background: '#ffffff',
+    borderRadius: 24,
+    padding: '28px 36px',
+    boxShadow: '0 4px 24px rgba(0,0,0,0.10)',
+  },
+  titleText: {
+    color: '#E8334A',
+    fontSize: 52,
+    fontWeight: 900,
+    textAlign: 'center',
+    fontFamily: 'sans-serif',
+    margin: 0,
+    lineHeight: 1.2,
+  },
+  charWrap: {
+    position: 'absolute',
+    bottom: 320,
+    left: '15%',
+  },
+  arrowArea: {
+    position: 'absolute',
+    top: '45%',
+    right: '5%',
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
   },
-  hairIcon: { fontSize: 80 },
-  hairLabel: {
-    color: '#aaa',
-    fontSize: 28,
+  arrowLabel: {
+    color: '#888',
+    fontSize: 26,
     fontFamily: 'sans-serif',
     marginTop: 8,
     textAlign: 'center',
   },
-  textBox: {
+  keyword: {
     position: 'absolute',
-    bottom: 160,
-    left: 60,
-    right: 60,
-    background: 'rgba(180,30,30,0.2)',
-    borderRadius: 20,
-    padding: '24px 32px',
-    border: '1px solid rgba(255,80,80,0.35)',
-  },
-  textMain: {
-    color: '#ffffff',
-    fontSize: 42,
-    fontWeight: 700,
+    bottom: 100,
+    left: 40,
+    right: 40,
     textAlign: 'center',
+    transformOrigin: 'center',
+  },
+  keywordText: {
+    color: '#E8334A',
+    fontSize: 110,
+    fontWeight: 900,
     fontFamily: 'sans-serif',
     margin: 0,
-    lineHeight: 1.3,
+    letterSpacing: -2,
+  },
+  keywordSub: {
+    color: '#555',
+    fontSize: 34,
+    fontFamily: 'sans-serif',
+    margin: '8px 0 0',
+    fontWeight: 500,
   },
 };

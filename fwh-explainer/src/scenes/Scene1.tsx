@@ -1,123 +1,101 @@
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
+import { Character } from '../Character';
 
 export const Scene1: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const characterX = spring({ frame, fps, from: -400, to: 0, durationInFrames: 20 });
-  const textOpacity = interpolate(frame, [15, 25], [0, 1], { extrapolateRight: 'clamp' });
-  const textY = interpolate(frame, [15, 25], [30, 0], { extrapolateRight: 'clamp' });
+  const charX = spring({ frame, fps, from: -500, to: 0, durationInFrames: 22, config: { damping: 14 } });
+  const titleY = interpolate(frame, [10, 22], [-60, 0], { extrapolateRight: 'clamp' });
+  const titleOpacity = interpolate(frame, [10, 22], [0, 1], { extrapolateRight: 'clamp' });
+  const keywordOpacity = interpolate(frame, [20, 30], [0, 1], { extrapolateRight: 'clamp' });
+  const keywordScale = spring({ frame: Math.max(0, frame - 20), fps, from: 0.7, to: 1, durationInFrames: 14, config: { damping: 10 } });
 
   return (
     <AbsoluteFill style={styles.container}>
-      {/* Crumpled paper texture background */}
-      <AbsoluteFill style={styles.background} />
-      <AbsoluteFill style={styles.noise} />
+      {/* Crumpled paper background */}
+      <AbsoluteFill style={styles.paper} />
+      <AbsoluteFill style={styles.paperTexture} />
 
-      {/* Character */}
-      <div style={{ ...styles.character, transform: `translateX(${characterX}px)` }}>
-        <div style={styles.body}>
-          <div style={styles.head}>
-            <div style={styles.face}>
-              {/* confused eyes */}
-              <div style={styles.eyeRow}>
-                <div style={{ ...styles.eye, transform: 'rotate(-15deg)' }} />
-                <div style={{ ...styles.eye, transform: 'rotate(15deg)' }} />
-              </div>
-              <div style={styles.mouthConfused} />
-            </div>
-          </div>
-          <div style={styles.torso} />
-          {/* cap held in hand */}
-          <div style={styles.arm}>
-            <div style={styles.capIcon}>🧢</div>
-          </div>
-        </div>
+      {/* Title top */}
+      <div style={{ ...styles.titleBox, opacity: titleOpacity, transform: `translateY(${titleY}px)` }}>
+        <p style={styles.titleText}>Was steckt in deiner Cap?</p>
       </div>
 
-      {/* Text */}
-      <div style={{ ...styles.textBox, opacity: textOpacity, transform: `translateY(${textY}px)` }}>
-        <p style={styles.text}>„Die meisten Caps sind innen aus Baumwolle."</p>
+      {/* Character */}
+      <div style={{ ...styles.charWrap, transform: `translateX(${charX}px)` }}>
+        <Character mood="confused" scale={0.88} />
+      </div>
+
+      {/* Keyword callout */}
+      <div style={{
+        ...styles.keyword,
+        opacity: keywordOpacity,
+        transform: `scale(${keywordScale})`,
+      }}>
+        <p style={styles.keywordText}>BAUMWOLLE</p>
+        <p style={styles.keywordSub}>Die meisten Caps innen</p>
       </div>
     </AbsoluteFill>
   );
 };
 
 const styles: Record<string, React.CSSProperties> = {
-  container: { overflow: 'hidden' },
-  background: {
-    background: 'radial-gradient(ellipse at center, #1a1a1a 0%, #0a0a0a 100%)',
+  container: { overflow: 'hidden', background: '#f5f0eb' },
+  paper: {
+    background: '#f0ebe4',
+    backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'400\'%3E%3Cfilter id=\'paper\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3CfeColorMatrix type=\'saturate\' values=\'0\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23paper)\' opacity=\'0.18\'/%3E%3C/svg%3E")',
   },
-  noise: {
-    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E")`,
-    opacity: 0.4,
+  paperTexture: {
+    backgroundImage: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 28px), repeating-linear-gradient(90deg, rgba(0,0,0,0.01) 0px, rgba(0,0,0,0.01) 1px, transparent 1px, transparent 28px)',
   },
-  character: {
+  titleBox: {
     position: 'absolute',
-    bottom: 320,
-    left: '50%',
-    transform: 'translateX(-50%)',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    top: 80,
+    left: 40,
+    right: 40,
+    background: '#ffffff',
+    borderRadius: 24,
+    padding: '28px 36px',
+    boxShadow: '0 4px 24px rgba(0,0,0,0.10)',
   },
-  body: { display: 'flex', flexDirection: 'column', alignItems: 'center' },
-  head: {
-    width: 100,
-    height: 100,
-    borderRadius: '50%',
-    background: '#F4C27F',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 4,
-  },
-  face: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 },
-  eyeRow: { display: 'flex', gap: 18 },
-  eye: {
-    width: 12,
-    height: 16,
-    borderRadius: '50%',
-    background: '#1a1a1a',
-  },
-  mouthConfused: {
-    width: 30,
-    height: 14,
-    borderRadius: '0 0 15px 15px',
-    border: '3px solid #1a1a1a',
-    borderTop: 'none',
-    transform: 'scaleY(-1)',
-  },
-  torso: {
-    width: 80,
-    height: 100,
-    background: '#2a2a2a',
-    borderRadius: 12,
-    marginBottom: 4,
-  },
-  arm: {
-    marginTop: -60,
-    marginLeft: 70,
-    fontSize: 48,
-  },
-  capIcon: { fontSize: 48 },
-  textBox: {
-    position: 'absolute',
-    bottom: 160,
-    left: 60,
-    right: 60,
-    background: 'rgba(0,0,0,0.75)',
-    borderRadius: 20,
-    padding: '24px 32px',
-    border: '1px solid rgba(255,255,255,0.12)',
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 42,
-    fontWeight: 700,
+  titleText: {
+    color: '#1a1a1a',
+    fontSize: 56,
+    fontWeight: 900,
     textAlign: 'center',
     fontFamily: 'sans-serif',
     margin: 0,
-    lineHeight: 1.3,
+    lineHeight: 1.2,
+  },
+  charWrap: {
+    position: 'absolute',
+    bottom: 300,
+    left: '50%',
+    transform: 'translateX(-50%)',
+  },
+  keyword: {
+    position: 'absolute',
+    bottom: 100,
+    left: 40,
+    right: 40,
+    textAlign: 'center',
+    transformOrigin: 'center',
+  },
+  keywordText: {
+    color: '#1a1a1a',
+    fontSize: 100,
+    fontWeight: 900,
+    fontFamily: 'sans-serif',
+    margin: 0,
+    letterSpacing: -2,
+    textShadow: '4px 4px 0px rgba(0,0,0,0.08)',
+  },
+  keywordSub: {
+    color: '#555',
+    fontSize: 36,
+    fontFamily: 'sans-serif',
+    margin: '8px 0 0',
+    fontWeight: 500,
   },
 };

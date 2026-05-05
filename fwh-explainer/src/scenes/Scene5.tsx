@@ -1,80 +1,99 @@
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
+import { Character } from '../Character';
 
 export const Scene5: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
   const dropScale = spring({ frame, fps, from: 0, to: 1, durationInFrames: 16, config: { damping: 7 } });
-  const clockScale = spring({ frame: Math.max(0, frame - 10), fps, from: 0, to: 1, durationInFrames: 16, config: { damping: 7 } });
-  const textOpacity = interpolate(frame, [18, 28], [0, 1], { extrapolateRight: 'clamp' });
-
-  // clock hand rotation
+  const clockScale = spring({ frame: Math.max(0, frame - 8), fps, from: 0, to: 1, durationInFrames: 16, config: { damping: 7 } });
+  const keywordOpacity = interpolate(frame, [20, 30], [0, 1], { extrapolateRight: 'clamp' });
   const clockAngle = interpolate(frame, [0, 90], [0, 360], { extrapolateRight: 'clamp' });
 
   return (
     <AbsoluteFill style={styles.container}>
-      <AbsoluteFill style={styles.background} />
+      <AbsoluteFill style={styles.paper} />
+      <AbsoluteFill style={styles.goldTint} />
 
+      {/* Title */}
+      <div style={styles.titleBox}>
+        <p style={styles.titleText}>Hält Feuchtigkeit. Frisur sitzt länger.</p>
+      </div>
+
+      {/* Icons row */}
       <div style={styles.iconsRow}>
         {/* Water drop */}
         <div style={{ transform: `scale(${dropScale})`, ...styles.iconCard }}>
-          <svg width="120" height="150" viewBox="0 0 120 150">
-            <path d="M60 10 Q90 50 90 90 A30 30 0 0 1 30 90 Q30 50 60 10Z"
-              fill="#4FC3F7" opacity="0.9" />
-            <path d="M60 40 Q75 65 75 85 A15 15 0 0 1 45 85 Q45 65 60 40Z"
-              fill="rgba(255,255,255,0.35)" />
+          <svg width="100" height="125" viewBox="0 0 100 125">
+            <path d="M50 8 Q76 44 76 76 A26 26 0 0 1 24 76 Q24 44 50 8Z" fill="#4FC3F7" />
+            <path d="M50 34 Q63 56 63 72 A13 13 0 0 1 37 72 Q37 56 50 34Z" fill="rgba(255,255,255,0.4)" />
           </svg>
           <p style={styles.iconLabel}>Feuchtigkeit</p>
         </div>
 
+        {/* Character */}
+        <div style={styles.charWrap}>
+          <Character mood="happy" scale={0.65} />
+        </div>
+
         {/* Clock */}
         <div style={{ transform: `scale(${clockScale})`, ...styles.iconCard }}>
-          <svg width="130" height="130" viewBox="0 0 130 130">
-            <circle cx="65" cy="65" r="58" fill="none" stroke="#C9A84C" strokeWidth="6" />
-            <circle cx="65" cy="65" r="5" fill="#C9A84C" />
-            {/* Hour hand */}
-            <line x1="65" y1="65" x2="65" y2="28"
+          <svg width="110" height="110" viewBox="0 0 110 110">
+            <circle cx="55" cy="55" r="50" fill="none" stroke="#C9A84C" strokeWidth="6" />
+            <circle cx="55" cy="55" r="5" fill="#C9A84C" />
+            <line x1="55" y1="55" x2="55" y2="22"
               stroke="#C9A84C" strokeWidth="5" strokeLinecap="round"
-              transform={`rotate(${clockAngle * 0.5} 65 65)`} />
-            {/* Minute hand */}
-            <line x1="65" y1="65" x2="65" y2="18"
-              stroke="#FFD54F" strokeWidth="3" strokeLinecap="round"
-              transform={`rotate(${clockAngle} 65 65)`} />
-            {/* Tick marks */}
-            {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((a) => (
-              <line key={a}
-                x1={65 + 48 * Math.sin((a * Math.PI) / 180)}
-                y1={65 - 48 * Math.cos((a * Math.PI) / 180)}
-                x2={65 + 55 * Math.sin((a * Math.PI) / 180)}
-                y2={65 - 55 * Math.cos((a * Math.PI) / 180)}
-                stroke="#C9A84C" strokeWidth="2" />
-            ))}
+              transform={`rotate(${clockAngle * 0.5} 55 55)`} />
+            <line x1="55" y1="55" x2="55" y2="14"
+              stroke="#1a1a1a" strokeWidth="3" strokeLinecap="round"
+              transform={`rotate(${clockAngle} 55 55)`} />
           </svg>
           <p style={styles.iconLabel}>Länger halten</p>
         </div>
       </div>
 
-      {/* Text */}
-      <div style={{ ...styles.textBox, opacity: textOpacity }}>
-        <p style={styles.text}>„Hält Feuchtigkeit. Frisur sitzt länger."</p>
+      {/* Keyword */}
+      <div style={{ ...styles.keyword, opacity: keywordOpacity }}>
+        <p style={styles.keywordText}>FRISUR SITZT</p>
+        <p style={styles.keywordSub}>Dank Premium-Satin innen</p>
       </div>
     </AbsoluteFill>
   );
 };
 
 const styles: Record<string, React.CSSProperties> = {
-  container: { overflow: 'hidden' },
-  background: {
-    background: 'radial-gradient(ellipse at 50% 40%, #3d2a00 0%, #1a1000 60%, #0a0a0a 100%)',
+  container: { overflow: 'hidden', background: '#f5f0eb' },
+  paper: { background: '#f5f0e8' },
+  goldTint: {
+    background: 'radial-gradient(ellipse at 50% 60%, rgba(201,168,76,0.10) 0%, transparent 70%)',
+  },
+  titleBox: {
+    position: 'absolute',
+    top: 80,
+    left: 40,
+    right: 40,
+    background: '#ffffff',
+    borderRadius: 24,
+    padding: '28px 36px',
+    boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+  },
+  titleText: {
+    color: '#1a1a1a',
+    fontSize: 52,
+    fontWeight: 900,
+    textAlign: 'center',
+    fontFamily: 'sans-serif',
+    margin: 0,
+    lineHeight: 1.2,
   },
   iconsRow: {
     position: 'absolute',
-    top: '25%',
+    top: '36%',
     left: 0,
     right: 0,
     display: 'flex',
     justifyContent: 'space-evenly',
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
   iconCard: {
     display: 'flex',
@@ -83,30 +102,36 @@ const styles: Record<string, React.CSSProperties> = {
     transformOrigin: 'center bottom',
   },
   iconLabel: {
-    color: '#FFD54F',
-    fontSize: 32,
+    color: '#333',
+    fontSize: 28,
     fontWeight: 700,
     fontFamily: 'sans-serif',
-    marginTop: 16,
+    marginTop: 12,
     textAlign: 'center',
   },
-  textBox: {
+  charWrap: {
+    marginBottom: -20,
+  },
+  keyword: {
     position: 'absolute',
-    bottom: 160,
-    left: 60,
-    right: 60,
-    background: 'rgba(0,0,0,0.6)',
-    borderRadius: 20,
-    padding: '24px 32px',
-    border: '1px solid rgba(201,168,76,0.4)',
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 42,
-    fontWeight: 700,
+    bottom: 100,
+    left: 40,
+    right: 40,
     textAlign: 'center',
+  },
+  keywordText: {
+    color: '#C9A84C',
+    fontSize: 86,
+    fontWeight: 900,
     fontFamily: 'sans-serif',
     margin: 0,
-    lineHeight: 1.3,
+    letterSpacing: -2,
+  },
+  keywordSub: {
+    color: '#555',
+    fontSize: 34,
+    fontFamily: 'sans-serif',
+    margin: '8px 0 0',
+    fontWeight: 500,
   },
 };
