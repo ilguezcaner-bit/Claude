@@ -1,13 +1,14 @@
-import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
+import { AbsoluteFill, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Character } from '../Character';
 
 export const Scene3: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const xScale = spring({ frame, fps, from: 0, to: 1, durationInFrames: 16, config: { damping: 8 } });
-  const keywordOpacity = interpolate(frame, [16, 26], [0, 1], { extrapolateRight: 'clamp' });
-  const shake = Math.sin(frame * 2.8) * 8 * Math.max(0, 1 - frame / 20);
+  const imgOpacity = interpolate(frame, [0, 12], [0, 1], { extrapolateRight: 'clamp' });
+  const xScale = spring({ frame: Math.max(0, frame - 6), fps, from: 0, to: 1, durationInFrames: 16, config: { damping: 8 } });
+  const keywordOpacity = interpolate(frame, [20, 30], [0, 1], { extrapolateRight: 'clamp' });
+  const shake = Math.sin(frame * 2.8) * 7 * Math.max(0, 1 - frame / 18);
 
   return (
     <AbsoluteFill style={styles.container}>
@@ -18,15 +19,22 @@ export const Scene3: React.FC = () => {
         <p style={styles.titleText}>Auf Dauer strapaziert es dein Haar.</p>
       </div>
 
-      {/* Character + X overlay */}
+      {/* Cap image right — shows a normal cotton cap */}
+      <div style={{ ...styles.imgRight, opacity: imgOpacity }}>
+        <Img src={staticFile('caps/cap_official.jpg')} style={styles.capImg} />
+        <div style={styles.imgLabel}>
+          <p style={styles.imgLabelText}>❌ Baumwolle innen</p>
+        </div>
+      </div>
+
+      {/* Character left + X */}
       <div style={{ ...styles.charWrap, transform: `translateX(${shake}px)` }}>
-        <Character mood="confused" scale={0.78} />
-        {/* Red X overlay */}
-        <svg width={180 * xScale} height={180 * xScale} viewBox="0 0 180 180"
-          style={{ position: 'absolute', top: 20, left: -20 }}>
-          <circle cx="90" cy="90" r="84" fill="rgba(232,51,74,0.18)" stroke="#E8334A" strokeWidth="6" />
-          <line x1="44" y1="44" x2="136" y2="136" stroke="#E8334A" strokeWidth="14" strokeLinecap="round" />
-          <line x1="136" y1="44" x2="44" y2="136" stroke="#E8334A" strokeWidth="14" strokeLinecap="round" />
+        <Character mood="confused" scale={0.72} />
+        <svg width={160 * xScale} height={160 * xScale} viewBox="0 0 160 160"
+          style={{ position: 'absolute', top: 10, left: -10 }}>
+          <circle cx="80" cy="80" r="74" fill="rgba(232,51,74,0.18)" stroke="#E8334A" strokeWidth="6" />
+          <line x1="40" y1="40" x2="120" y2="120" stroke="#E8334A" strokeWidth="13" strokeLinecap="round" />
+          <line x1="120" y1="40" x2="40" y2="120" stroke="#E8334A" strokeWidth="13" strokeLinecap="round" />
         </svg>
       </div>
 
@@ -44,14 +52,14 @@ const styles: Record<string, React.CSSProperties> = {
   paper: { background: '#f0ebe4' },
   titleBox: {
     position: 'absolute',
-    top: 80,
-    left: 40,
-    right: 40,
+    top: 160,
+    left: 50,
+    right: 50,
     background: '#fff0f0',
     borderRadius: 24,
-    padding: '28px 36px',
-    boxShadow: '0 4px 24px rgba(232,51,74,0.15)',
-    border: '2px solid rgba(232,51,74,0.2)',
+    padding: '32px 40px',
+    boxShadow: '0 6px 30px rgba(232,51,74,0.12)',
+    border: '2px solid rgba(232,51,74,0.18)',
   },
   titleText: {
     color: '#1a1a1a',
@@ -62,17 +70,39 @@ const styles: Record<string, React.CSSProperties> = {
     margin: 0,
     lineHeight: 1.2,
   },
+  imgRight: {
+    position: 'absolute',
+    top: 460,
+    right: 40,
+    width: 380,
+    borderRadius: 20,
+    overflow: 'hidden',
+    boxShadow: '0 8px 30px rgba(0,0,0,0.15)',
+    border: '3px solid rgba(232,51,74,0.3)',
+  },
+  capImg: { width: '100%', height: 340, objectFit: 'cover' },
+  imgLabel: {
+    background: 'rgba(232,51,74,0.9)',
+    padding: '10px 16px',
+  },
+  imgLabelText: {
+    color: '#fff',
+    fontSize: 28,
+    fontWeight: 700,
+    fontFamily: 'sans-serif',
+    margin: 0,
+    textAlign: 'center',
+  },
   charWrap: {
     position: 'absolute',
-    bottom: 300,
-    left: '50%',
-    transform: 'translateX(-50%)',
+    top: 460,
+    left: 20,
   },
   keyword: {
     position: 'absolute',
-    bottom: 100,
-    left: 40,
-    right: 40,
+    top: 1100,
+    left: 50,
+    right: 50,
     textAlign: 'center',
   },
   keywordText: {
@@ -85,9 +115,9 @@ const styles: Record<string, React.CSSProperties> = {
   },
   keywordSub: {
     color: '#666',
-    fontSize: 34,
+    fontSize: 36,
     fontFamily: 'sans-serif',
-    margin: '8px 0 0',
+    margin: '10px 0 0',
     fontWeight: 500,
   },
 };

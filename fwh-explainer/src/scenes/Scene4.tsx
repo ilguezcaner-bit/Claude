@@ -1,18 +1,18 @@
-import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
+import { AbsoluteFill, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Character } from '../Character';
 
 export const Scene4: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const checkScale = spring({ frame: Math.max(0, frame - 10), fps, from: 0, to: 1, durationInFrames: 18, config: { damping: 7 } });
-  const keywordOpacity = interpolate(frame, [20, 30], [0, 1], { extrapolateRight: 'clamp' });
-  const keywordScale = spring({ frame: Math.max(0, frame - 20), fps, from: 0.6, to: 1, durationInFrames: 14, config: { damping: 10 } });
+  const imgScale = spring({ frame, fps, from: 0.85, to: 1, durationInFrames: 20 });
+  const imgOpacity = interpolate(frame, [0, 14], [0, 1], { extrapolateRight: 'clamp' });
+  const checkScale = spring({ frame: Math.max(0, frame - 14), fps, from: 0, to: 1, durationInFrames: 16, config: { damping: 7 } });
+  const keywordOpacity = interpolate(frame, [24, 34], [0, 1], { extrapolateRight: 'clamp' });
 
   return (
     <AbsoluteFill style={styles.container}>
       <AbsoluteFill style={styles.paper} />
-      {/* Gold tint */}
       <AbsoluteFill style={styles.goldTint} />
 
       {/* Title */}
@@ -20,30 +20,35 @@ export const Scene4: React.FC = () => {
         <p style={styles.titleText}>Satin reduziert Reibung. Kein Frizz.</p>
       </div>
 
-      {/* Character happy with thumbs up */}
-      <div style={styles.charWrap}>
-        <Character mood="thumbsup" scale={0.82} />
+      {/* Satin interior image — MAIN VISUAL */}
+      <div style={{
+        ...styles.satinImgWrap,
+        opacity: imgOpacity,
+        transform: `scale(${imgScale})`,
+      }}>
+        <Img src={staticFile('caps/cap_interior.jpg')} style={styles.satinImg} />
+        <div style={styles.satinLabel}>
+          <p style={styles.satinLabelText}>✅ Premium Satin innen</p>
+        </div>
       </div>
 
-      {/* Big green checkmark */}
-      <div style={{
-        ...styles.checkWrap,
-        transform: `scale(${checkScale})`,
-      }}>
-        <svg width="160" height="160" viewBox="0 0 160 160">
-          <circle cx="80" cy="80" r="74" fill="rgba(0,180,80,0.15)" stroke="#00C853" strokeWidth="6" />
-          <polyline points="38,80 66,108 122,50"
-            fill="none" stroke="#00C853" strokeWidth="12"
+      {/* Character small left */}
+      <div style={styles.charWrap}>
+        <Character mood="thumbsup" scale={0.6} />
+      </div>
+
+      {/* Green checkmark overlay */}
+      <div style={{ ...styles.checkWrap, transform: `scale(${checkScale})` }}>
+        <svg width="130" height="130" viewBox="0 0 130 130">
+          <circle cx="65" cy="65" r="60" fill="rgba(0,180,80,0.18)" stroke="#00C853" strokeWidth="6" />
+          <polyline points="32,65 55,90 98,42"
+            fill="none" stroke="#00C853" strokeWidth="11"
             strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </div>
 
       {/* Keyword */}
-      <div style={{
-        ...styles.keyword,
-        opacity: keywordOpacity,
-        transform: `scale(${keywordScale})`,
-      }}>
+      <div style={{ ...styles.keyword, opacity: keywordOpacity }}>
         <p style={styles.keywordText}>SATIN</p>
         <p style={styles.keywordSub}>Smooth. Kein Frizz. Kein Haarbruch.</p>
       </div>
@@ -55,17 +60,17 @@ const styles: Record<string, React.CSSProperties> = {
   container: { overflow: 'hidden', background: '#f5f0eb' },
   paper: { background: '#f5f0e8' },
   goldTint: {
-    background: 'radial-gradient(ellipse at 50% 60%, rgba(201,168,76,0.12) 0%, transparent 70%)',
+    background: 'radial-gradient(ellipse at 50% 55%, rgba(201,168,76,0.1) 0%, transparent 70%)',
   },
   titleBox: {
     position: 'absolute',
-    top: 80,
-    left: 40,
-    right: 40,
+    top: 160,
+    left: 50,
+    right: 50,
     background: '#f0fff4',
     borderRadius: 24,
-    padding: '28px 36px',
-    boxShadow: '0 4px 24px rgba(0,180,80,0.15)',
+    padding: '32px 40px',
+    boxShadow: '0 6px 30px rgba(0,180,80,0.12)',
     border: '2px solid rgba(0,180,80,0.2)',
   },
   titleText: {
@@ -77,24 +82,49 @@ const styles: Record<string, React.CSSProperties> = {
     margin: 0,
     lineHeight: 1.2,
   },
+  satinImgWrap: {
+    position: 'absolute',
+    top: 460,
+    left: 50,
+    right: 50,
+    borderRadius: 24,
+    overflow: 'hidden',
+    boxShadow: '0 12px 50px rgba(201,168,76,0.35)',
+    border: '4px solid #C9A84C',
+    transformOrigin: 'center',
+  },
+  satinImg: { width: '100%', height: 480, objectFit: 'cover', objectPosition: 'center top' },
+  satinLabel: {
+    background: 'rgba(201,168,76,0.95)',
+    padding: '12px 20px',
+  },
+  satinLabelText: {
+    color: '#1a1a1a',
+    fontSize: 30,
+    fontWeight: 800,
+    fontFamily: 'sans-serif',
+    margin: 0,
+    textAlign: 'center',
+  },
   charWrap: {
     position: 'absolute',
-    bottom: 300,
-    left: '15%',
+    top: 470,
+    right: 60,
+    zIndex: 10,
   },
   checkWrap: {
     position: 'absolute',
-    top: '42%',
-    right: '10%',
+    top: 460,
+    right: 55,
     transformOrigin: 'center',
+    zIndex: 11,
   },
   keyword: {
     position: 'absolute',
-    bottom: 100,
-    left: 40,
-    right: 40,
+    top: 1100,
+    left: 50,
+    right: 50,
     textAlign: 'center',
-    transformOrigin: 'center',
   },
   keywordText: {
     color: '#C9A84C',
@@ -103,13 +133,13 @@ const styles: Record<string, React.CSSProperties> = {
     fontFamily: 'sans-serif',
     margin: 0,
     letterSpacing: -2,
-    textShadow: '3px 3px 0px rgba(0,0,0,0.1)',
+    textShadow: '3px 3px 0px rgba(0,0,0,0.08)',
   },
   keywordSub: {
     color: '#555',
-    fontSize: 34,
+    fontSize: 36,
     fontFamily: 'sans-serif',
-    margin: '8px 0 0',
+    margin: '10px 0 0',
     fontWeight: 500,
   },
 };
