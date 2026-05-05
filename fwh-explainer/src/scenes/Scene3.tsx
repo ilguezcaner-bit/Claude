@@ -12,14 +12,18 @@ export const Scene3: React.FC = () => {
 
   return (
     <AbsoluteFill style={styles.container}>
-      <AbsoluteFill style={styles.paper} />
+      <AbsoluteFill style={styles.bg} />
+      <AbsoluteFill style={styles.noise} />
+
+      <div style={styles.cornerAccentTL} />
+      <div style={styles.cornerAccentBR} />
 
       {/* Title */}
       <div style={styles.titleBox}>
         <p style={styles.titleText}>Auf Dauer strapaziert es dein Haar.</p>
       </div>
 
-      {/* Cap image right — shows a normal cotton cap */}
+      {/* Cap image right */}
       <div style={{ ...styles.imgRight, opacity: imgOpacity }}>
         <Img src={staticFile('caps/cap_official.jpg')} style={styles.capImg} />
         <div style={styles.imgLabel}>
@@ -48,21 +52,34 @@ export const Scene3: React.FC = () => {
 };
 
 const styles: Record<string, React.CSSProperties> = {
-  container: { overflow: 'hidden', background: '#f5f0eb' },
-  paper: { background: '#f0ebe4' },
+  container: { overflow: 'hidden', background: '#0a0a0a' },
+  bg: {
+    background: 'radial-gradient(ellipse at 50% 40%, #1a0808 0%, #0a0a0a 70%)',
+  },
+  noise: {
+    backgroundImage: 'repeating-linear-gradient(45deg, rgba(201,168,76,0.03) 0px, rgba(201,168,76,0.03) 1px, transparent 1px, transparent 20px)',
+  },
+  cornerAccentTL: {
+    position: 'absolute', top: 0, left: 0, width: 200, height: 200,
+    background: 'linear-gradient(135deg, rgba(232,51,74,0.12) 0%, transparent 60%)',
+  },
+  cornerAccentBR: {
+    position: 'absolute', bottom: 0, right: 0, width: 200, height: 200,
+    background: 'linear-gradient(315deg, rgba(232,51,74,0.12) 0%, transparent 60%)',
+  },
   titleBox: {
     position: 'absolute',
     top: 280,
     left: 50,
     right: 50,
-    background: '#fff0f0',
-    borderRadius: 24,
-    padding: '32px 40px',
-    boxShadow: '0 6px 30px rgba(232,51,74,0.12)',
-    border: '2px solid rgba(232,51,74,0.18)',
+    background: '#160808',
+    borderRadius: 20,
+    padding: '30px 40px',
+    border: '2px solid rgba(232,51,74,0.4)',
+    boxShadow: '0 0 40px rgba(232,51,74,0.1)',
   },
   titleText: {
-    color: '#1a1a1a',
+    color: '#ffffff',
     fontSize: 52,
     fontWeight: 900,
     textAlign: 'center',
@@ -77,12 +94,12 @@ const styles: Record<string, React.CSSProperties> = {
     width: 380,
     borderRadius: 20,
     overflow: 'hidden',
-    boxShadow: '0 8px 30px rgba(0,0,0,0.15)',
-    border: '3px solid rgba(232,51,74,0.3)',
+    boxShadow: '0 8px 40px rgba(232,51,74,0.25)',
+    border: '3px solid rgba(232,51,74,0.5)',
   },
   capImg: { width: '100%', height: 340, objectFit: 'cover' },
   imgLabel: {
-    background: 'rgba(232,51,74,0.9)',
+    background: '#E8334A',
     padding: '10px 16px',
   },
   imgLabelText: {
@@ -112,6 +129,7 @@ const styles: Record<string, React.CSSProperties> = {
     fontFamily: 'sans-serif',
     margin: 0,
     letterSpacing: -2,
+    textShadow: '0 0 60px rgba(232,51,74,0.5)',
   },
   keywordSub: {
     color: '#666',

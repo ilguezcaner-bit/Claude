@@ -12,7 +12,11 @@ export const Scene2: React.FC = () => {
 
   return (
     <AbsoluteFill style={styles.container}>
-      <AbsoluteFill style={styles.paper} />
+      <AbsoluteFill style={styles.bg} />
+      <AbsoluteFill style={styles.noise} />
+
+      <div style={styles.cornerAccentTL} />
+      <div style={styles.cornerAccentBR} />
 
       {/* Title */}
       <div style={styles.titleBox}>
@@ -24,7 +28,7 @@ export const Scene2: React.FC = () => {
         <Character mood="explaining" scale={0.78} />
       </div>
 
-      {/* Friction arrow — right side, no overlap */}
+      {/* Friction arrow — right side */}
       <div style={styles.arrowArea}>
         <svg width="380" height="100" viewBox="0 0 380 100">
           <defs>
@@ -38,21 +42,20 @@ export const Scene2: React.FC = () => {
             stroke="#E8334A" strokeWidth="8" strokeLinecap="round"
             markerEnd="url(#ah2)" />
         </svg>
-        {/* Hair strands */}
         <svg width="220" height="80" viewBox="0 0 220 80">
-          {[0,1,2,3,4,5].map(i => (
+          {[0, 1, 2, 3, 4, 5].map(i => (
             <line key={i}
               x1={20 + i * 36} y1="10"
               x2={20 + i * 36 + (i % 2 === 0 ? 12 : -12)} y2="70"
-              stroke="#8B4513" strokeWidth="4" strokeLinecap="round"
+              stroke="#C9A84C" strokeWidth="4" strokeLinecap="round"
               style={{ opacity: arrowProgress }} />
           ))}
           <text x="110" y="78" textAnchor="middle" fontSize="20"
-            fontFamily="sans-serif" fill="#888">Haar</text>
+            fontFamily="sans-serif" fill="#666">Haar</text>
         </svg>
       </div>
 
-      {/* Keyword — center safe zone */}
+      {/* Keyword */}
       <div style={{ ...styles.keyword, opacity: keywordOpacity, transform: `scale(${keywordScale})` }}>
         <p style={styles.keywordText}>REIBUNG</p>
         <p style={styles.keywordSub}>Baumwolle schadet deinem Haar</p>
@@ -62,18 +65,31 @@ export const Scene2: React.FC = () => {
 };
 
 const styles: Record<string, React.CSSProperties> = {
-  container: { overflow: 'hidden', background: '#f5f0eb' },
-  paper: { background: '#f0ebe4' },
+  container: { overflow: 'hidden', background: '#0a0a0a' },
+  bg: {
+    background: 'radial-gradient(ellipse at 50% 40%, #1a0808 0%, #0a0a0a 70%)',
+  },
+  noise: {
+    backgroundImage: 'repeating-linear-gradient(45deg, rgba(201,168,76,0.03) 0px, rgba(201,168,76,0.03) 1px, transparent 1px, transparent 20px)',
+  },
+  cornerAccentTL: {
+    position: 'absolute', top: 0, left: 0, width: 200, height: 200,
+    background: 'linear-gradient(135deg, rgba(232,51,74,0.12) 0%, transparent 60%)',
+  },
+  cornerAccentBR: {
+    position: 'absolute', bottom: 0, right: 0, width: 200, height: 200,
+    background: 'linear-gradient(315deg, rgba(232,51,74,0.12) 0%, transparent 60%)',
+  },
   titleBox: {
     position: 'absolute',
     top: 280,
     left: 50,
     right: 50,
-    background: '#fff0f0',
-    borderRadius: 24,
-    padding: '32px 40px',
-    boxShadow: '0 6px 30px rgba(232,51,74,0.12)',
-    border: '2px solid rgba(232,51,74,0.18)',
+    background: '#160808',
+    borderRadius: 20,
+    padding: '30px 40px',
+    border: '2px solid rgba(232,51,74,0.4)',
+    boxShadow: '0 0 40px rgba(232,51,74,0.1)',
   },
   titleText: {
     color: '#E8334A',
@@ -112,6 +128,7 @@ const styles: Record<string, React.CSSProperties> = {
     fontFamily: 'sans-serif',
     margin: 0,
     letterSpacing: -2,
+    textShadow: '0 0 60px rgba(232,51,74,0.5)',
   },
   keywordSub: {
     color: '#666',

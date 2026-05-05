@@ -12,21 +12,24 @@ export const Scene5: React.FC = () => {
 
   return (
     <AbsoluteFill style={styles.container}>
-      <AbsoluteFill style={styles.paper} />
-      <AbsoluteFill style={styles.goldTint} />
+      <AbsoluteFill style={styles.bg} />
+      <AbsoluteFill style={styles.noise} />
+
+      <div style={styles.cornerAccentTL} />
+      <div style={styles.cornerAccentBR} />
 
       {/* Title */}
       <div style={styles.titleBox}>
         <p style={styles.titleText}>Hält Feuchtigkeit. Frisur sitzt länger.</p>
       </div>
 
-      {/* Satin interior — background image */}
+      {/* Background image */}
       <div style={{ ...styles.imgWrap, opacity: imgOpacity }}>
         <Img src={staticFile('caps/cap_interior.jpg')} style={styles.bgImg} />
         <div style={styles.imgOverlay} />
       </div>
 
-      {/* Icons on top of image */}
+      {/* Icons */}
       <div style={styles.iconsRow}>
         <div style={{ transform: `scale(${dropScale})`, ...styles.iconCard }}>
           <svg width="90" height="115" viewBox="0 0 90 115">
@@ -38,7 +41,7 @@ export const Scene5: React.FC = () => {
 
         <div style={{ transform: `scale(${clockScale})`, ...styles.iconCard }}>
           <svg width="100" height="100" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="46" fill="rgba(255,255,255,0.15)" stroke="#C9A84C" strokeWidth="5" />
+            <circle cx="50" cy="50" r="46" fill="rgba(201,168,76,0.15)" stroke="#C9A84C" strokeWidth="5" />
             <circle cx="50" cy="50" r="5" fill="#C9A84C" />
             <line x1="50" y1="50" x2="50" y2="20" stroke="#C9A84C" strokeWidth="5" strokeLinecap="round"
               transform={`rotate(${clockAngle * 0.5} 50 50)`} />
@@ -59,24 +62,35 @@ export const Scene5: React.FC = () => {
 };
 
 const styles: Record<string, React.CSSProperties> = {
-  container: { overflow: 'hidden', background: '#f5f0eb' },
-  paper: { background: '#f5f0e8' },
-  goldTint: {
-    background: 'radial-gradient(ellipse at 50% 55%, rgba(201,168,76,0.08) 0%, transparent 70%)',
+  container: { overflow: 'hidden', background: '#0a0a0a' },
+  bg: {
+    background: 'radial-gradient(ellipse at 50% 55%, #0a100a 0%, #0a0a0a 70%)',
+  },
+  noise: {
+    backgroundImage: 'repeating-linear-gradient(45deg, rgba(201,168,76,0.03) 0px, rgba(201,168,76,0.03) 1px, transparent 1px, transparent 20px)',
+  },
+  cornerAccentTL: {
+    position: 'absolute', top: 0, left: 0, width: 200, height: 200,
+    background: 'linear-gradient(135deg, rgba(201,168,76,0.12) 0%, transparent 60%)',
+  },
+  cornerAccentBR: {
+    position: 'absolute', bottom: 0, right: 0, width: 200, height: 200,
+    background: 'linear-gradient(315deg, rgba(201,168,76,0.12) 0%, transparent 60%)',
   },
   titleBox: {
     position: 'absolute',
     top: 280,
     left: 50,
     right: 50,
-    background: '#ffffff',
-    borderRadius: 24,
-    padding: '32px 40px',
-    boxShadow: '0 6px 30px rgba(0,0,0,0.08)',
+    background: '#161616',
+    borderRadius: 20,
+    padding: '30px 40px',
+    border: '2px solid rgba(201,168,76,0.4)',
+    boxShadow: '0 0 40px rgba(201,168,76,0.1)',
     zIndex: 10,
   },
   titleText: {
-    color: '#1a1a1a',
+    color: '#ffffff',
     fontSize: 52,
     fontWeight: 900,
     textAlign: 'center',
@@ -90,16 +104,16 @@ const styles: Record<string, React.CSSProperties> = {
     left: 50,
     right: 50,
     height: 520,
-    borderRadius: 24,
+    borderRadius: 20,
     overflow: 'hidden',
-    boxShadow: '0 12px 40px rgba(201,168,76,0.3)',
-    border: '4px solid #C9A84C',
+    boxShadow: '0 12px 60px rgba(201,168,76,0.3)',
+    border: '3px solid #C9A84C',
   },
   bgImg: { width: '100%', height: '100%', objectFit: 'cover' },
   imgOverlay: {
     position: 'absolute',
     inset: 0,
-    background: 'rgba(0,0,0,0.35)',
+    background: 'rgba(0,0,0,0.55)',
   },
   iconsRow: {
     position: 'absolute',
@@ -119,12 +133,13 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 12,
   },
   iconBadge: {
-    background: 'rgba(255,255,255,0.9)',
+    background: 'rgba(201,168,76,0.15)',
+    border: '1px solid rgba(201,168,76,0.4)',
     borderRadius: 12,
     padding: '8px 18px',
   },
   iconBadgeText: {
-    color: '#1a1a1a',
+    color: '#ffffff',
     fontSize: 28,
     fontWeight: 700,
     fontFamily: 'sans-serif',
@@ -144,9 +159,10 @@ const styles: Record<string, React.CSSProperties> = {
     fontFamily: 'sans-serif',
     margin: 0,
     letterSpacing: -2,
+    textShadow: '0 0 60px rgba(201,168,76,0.5)',
   },
   keywordSub: {
-    color: '#555',
+    color: '#666',
     fontSize: 36,
     fontFamily: 'sans-serif',
     margin: '10px 0 0',

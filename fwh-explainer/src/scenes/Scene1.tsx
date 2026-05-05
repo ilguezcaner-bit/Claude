@@ -13,20 +13,24 @@ export const Scene1: React.FC = () => {
 
   return (
     <AbsoluteFill style={styles.container}>
-      <AbsoluteFill style={styles.paper} />
-      <AbsoluteFill style={styles.paperTexture} />
+      <AbsoluteFill style={styles.bg} />
+      <AbsoluteFill style={styles.noise} />
 
-      {/* Title — top safe zone */}
+      {/* Gold corner accent */}
+      <div style={styles.cornerAccentTL} />
+      <div style={styles.cornerAccentBR} />
+
+      {/* Title */}
       <div style={{ ...styles.titleBox, opacity: titleOpacity, transform: `translateY(${titleY}px)` }}>
         <p style={styles.titleText}>Was steckt in deiner Cap?</p>
       </div>
 
-      {/* Character — center */}
+      {/* Character */}
       <div style={{ ...styles.charWrap, transform: `translateX(${charX}px)` }}>
         <Character mood="confused" scale={0.9} />
       </div>
 
-      {/* Keyword — center-bottom safe zone */}
+      {/* Keyword */}
       <div style={{ ...styles.keyword, opacity: keywordOpacity, transform: `scale(${keywordScale})` }}>
         <p style={styles.keywordText}>BAUMWOLLE</p>
         <p style={styles.keywordSub}>Die meisten Caps innen</p>
@@ -36,23 +40,42 @@ export const Scene1: React.FC = () => {
 };
 
 const styles: Record<string, React.CSSProperties> = {
-  container: { overflow: 'hidden', background: '#f5f0eb' },
-  paper: { background: '#f0ebe4' },
-  paperTexture: {
-    backgroundImage: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.012) 0px, rgba(0,0,0,0.012) 1px, transparent 1px, transparent 30px)',
+  container: { overflow: 'hidden', background: '#0a0a0a' },
+  bg: {
+    background: 'radial-gradient(ellipse at 50% 40%, #1a1a1a 0%, #0a0a0a 70%)',
+  },
+  noise: {
+    backgroundImage: 'repeating-linear-gradient(45deg, rgba(201,168,76,0.03) 0px, rgba(201,168,76,0.03) 1px, transparent 1px, transparent 20px)',
+  },
+  cornerAccentTL: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: 200,
+    height: 200,
+    background: 'linear-gradient(135deg, rgba(201,168,76,0.15) 0%, transparent 60%)',
+  },
+  cornerAccentBR: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    width: 200,
+    height: 200,
+    background: 'linear-gradient(315deg, rgba(201,168,76,0.15) 0%, transparent 60%)',
   },
   titleBox: {
     position: 'absolute',
     top: 280,
     left: 50,
     right: 50,
-    background: '#ffffff',
-    borderRadius: 24,
-    padding: '32px 40px',
-    boxShadow: '0 6px 30px rgba(0,0,0,0.10)',
+    background: '#161616',
+    borderRadius: 20,
+    padding: '30px 40px',
+    border: '2px solid rgba(201,168,76,0.5)',
+    boxShadow: '0 0 40px rgba(201,168,76,0.12)',
   },
   titleText: {
-    color: '#1a1a1a',
+    color: '#ffffff',
     fontSize: 58,
     fontWeight: 900,
     textAlign: 'center',
@@ -75,12 +98,13 @@ const styles: Record<string, React.CSSProperties> = {
     transformOrigin: 'center',
   },
   keywordText: {
-    color: '#1a1a1a',
+    color: '#C9A84C',
     fontSize: 100,
     fontWeight: 900,
     fontFamily: 'sans-serif',
     margin: 0,
     letterSpacing: -2,
+    textShadow: '0 0 60px rgba(201,168,76,0.4)',
   },
   keywordSub: {
     color: '#666',
