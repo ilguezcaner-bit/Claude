@@ -52,7 +52,7 @@ const styles: Record<string, React.CSSProperties> = {
   paper: { background: '#f0ebe4' },
   titleBox: {
     position: 'absolute',
-    top: 160,
+    top: 280,
     left: 50,
     right: 50,
     background: '#fff0f0',

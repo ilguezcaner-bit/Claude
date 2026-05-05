@@ -64,7 +64,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   titleBox: {
     position: 'absolute',
-    top: 160,
+    top: 280,
     left: 50,
     right: 50,
     background: '#f0fff4',
