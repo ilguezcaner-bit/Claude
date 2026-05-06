@@ -6,117 +6,118 @@ export const Scene1: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const charX = spring({ frame, fps, from: -500, to: 0, durationInFrames: 22, config: { damping: 14 } });
-  const titleOpacity = interpolate(frame, [8, 20], [0, 1], { extrapolateRight: 'clamp' });
-  const titleY = interpolate(frame, [8, 20], [-40, 0], { extrapolateRight: 'clamp' });
-  const keywordOpacity = interpolate(frame, [22, 32], [0, 1], { extrapolateRight: 'clamp' });
-  const keywordScale = spring({ frame: Math.max(0, frame - 22), fps, from: 0.7, to: 1, durationInFrames: 14, config: { damping: 10 } });
+  const w1 = spring({ frame, fps, from: -80, to: 0, durationInFrames: 18, config: { damping: 16 } });
+  const w2 = spring({ frame: Math.max(0, frame - 4), fps, from: -80, to: 0, durationInFrames: 18, config: { damping: 16 } });
+  const w3 = spring({ frame: Math.max(0, frame - 8), fps, from: -80, to: 0, durationInFrames: 18, config: { damping: 16 } });
+  const o1 = interpolate(frame, [0, 10], [0, 1], { extrapolateRight: 'clamp' });
+  const o2 = interpolate(frame, [4, 14], [0, 1], { extrapolateRight: 'clamp' });
+  const o3 = interpolate(frame, [8, 18], [0, 1], { extrapolateRight: 'clamp' });
+
+  const charX = spring({ frame: Math.max(0, frame - 12), fps, from: -500, to: 0, durationInFrames: 22, config: { damping: 14 } });
+
+  const kwOpacity = interpolate(frame, [22, 30], [0, 1], { extrapolateRight: 'clamp' });
+  const kwScale = spring({ frame: Math.max(0, frame - 22), fps, from: 1.15, to: 1, durationInFrames: 14, config: { damping: 12 } });
 
   return (
     <AbsoluteFill style={styles.container}>
-      {/* Grain texture */}
       <AbsoluteFill style={styles.grain} />
 
-      {/* Thin gold top bar */}
-      <div style={styles.topBar} />
+      {/* Scene number */}
+      <div style={styles.sceneNum}>01</div>
 
-      {/* Title */}
-      <div style={{ ...styles.titleBox, opacity: titleOpacity, transform: `translateY(${titleY}px)` }}>
-        <p style={styles.titleLabel}>THE QUESTION</p>
-        <p style={styles.titleText}>Was steckt in deiner Cap?</p>
+      {/* Title — raw stacked text, no box */}
+      <div style={styles.titleBlock}>
+        <p style={styles.tag}>INSIDE YOUR CAP</p>
+        <div style={{ overflow: 'hidden', marginBottom: 2 }}>
+          <p style={{ ...styles.titleLine, opacity: o1, transform: `translateY(${w1}px)` }}>WAS STECKT</p>
+        </div>
+        <div style={{ overflow: 'hidden', marginBottom: 2 }}>
+          <p style={{ ...styles.titleLine, ...styles.titleLineGold, opacity: o2, transform: `translateY(${w2}px)` }}>IN DEINER</p>
+        </div>
+        <div style={{ overflow: 'hidden' }}>
+          <p style={{ ...styles.titleLine, opacity: o3, transform: `translateY(${w3}px)` }}>CAP?</p>
+        </div>
       </div>
 
       {/* Character */}
       <div style={{ ...styles.charWrap, transform: `translateX(${charX}px)` }}>
-        <Character mood="confused" scale={0.9} />
+        <Character mood="confused" scale={0.82} />
       </div>
 
-      {/* Keyword */}
-      <div style={{ ...styles.keyword, opacity: keywordOpacity, transform: `scale(${keywordScale})` }}>
-        <p style={styles.keywordText}>BAUMWOLLE</p>
-        <p style={styles.keywordSub}>Die meisten Caps innen</p>
+      {/* Keyword — fills width via SVG */}
+      <div style={{ ...styles.kwWrap, opacity: kwOpacity, transform: `scale(${kwScale})` }}>
+        {/* Ghost outline */}
+        <svg width="980" height="160" viewBox="0 0 980 160" style={styles.kwSvgGhost}>
+          <text x="490" y="140" textAnchor="middle" textLength="980" lengthAdjust="spacingAndGlyphs"
+            fontSize="160" fontFamily="Impact, 'Arial Black', sans-serif"
+            fill="none" stroke="rgba(201,168,76,0.15)" strokeWidth="2">BAUMWOLLE</text>
+        </svg>
+        {/* Solid */}
+        <svg width="980" height="160" viewBox="0 0 980 160" style={styles.kwSvg}>
+          <text x="490" y="140" textAnchor="middle" textLength="940" lengthAdjust="spacingAndGlyphs"
+            fontSize="150" fontFamily="Impact, 'Arial Black', sans-serif" fill={SW.gold}>BAUMWOLLE</text>
+        </svg>
+        <p style={styles.kwSub}>Die meisten Caps innen</p>
       </div>
     </AbsoluteFill>
   );
 };
 
 const styles: Record<string, React.CSSProperties> = {
-  container: { overflow: 'hidden', background: SW.bgPure },
+  container: { overflow: 'hidden', background: '#000' },
   grain: {
-    backgroundImage: SW.grain,
-    backgroundRepeat: 'repeat',
-    opacity: 0.8,
+    backgroundImage: SW.grain, backgroundRepeat: 'repeat',
+    backgroundSize: '300px 300px', opacity: 0.7,
   },
-  topBar: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 6,
-    background: SW.gold,
+  sceneNum: {
+    position: 'absolute', top: 180, right: 50,
+    fontSize: 220, fontFamily: 'Impact, sans-serif',
+    color: 'rgba(255,255,255,0.03)', lineHeight: 1,
+    userSelect: 'none',
   },
-  titleBox: {
-    position: 'absolute',
-    top: 280,
-    left: 50,
-    right: 50,
-    background: SW.bgCard,
-    borderRadius: 4,
-    padding: '28px 40px 32px',
-    borderLeft: `6px solid ${SW.gold}`,
-    borderTop: '1px solid rgba(201,168,76,0.2)',
-    borderRight: '1px solid rgba(201,168,76,0.2)',
-    borderBottom: '1px solid rgba(201,168,76,0.2)',
+  titleBlock: {
+    position: 'absolute', top: 260, left: 50, right: 50,
   },
-  titleLabel: {
-    color: SW.gold,
-    fontSize: 22,
-    fontWeight: 700,
-    fontFamily: SW.fontBody,
-    letterSpacing: 6,
-    margin: '0 0 10px',
+  tag: {
+    color: SW.gold, fontSize: 20, fontFamily: SW.fontBody,
+    letterSpacing: 8, margin: '0 0 24px',
     textTransform: 'uppercase' as const,
   },
-  titleText: {
+  titleLine: {
     color: '#ffffff',
-    fontSize: 58,
-    fontWeight: 900,
-    textAlign: 'left' as const,
+    fontSize: 92,
     fontFamily: SW.fontDisplay,
     margin: 0,
-    lineHeight: 1.1,
+    lineHeight: 0.95,
     letterSpacing: -1,
     textTransform: 'uppercase' as const,
   },
+  titleLineGold: { color: SW.gold },
   charWrap: {
     position: 'absolute',
-    top: 420,
+    top: 680,
     left: '50%',
     transform: 'translateX(-50%)',
   },
-  keyword: {
+  kwWrap: {
     position: 'absolute',
-    top: 1090,
+    bottom: 100,
     left: 50,
     right: 50,
-    textAlign: 'center',
-    transformOrigin: 'center',
+    transformOrigin: 'center bottom',
   },
-  keywordText: {
-    color: SW.gold,
-    fontSize: 108,
-    fontFamily: SW.fontDisplay,
-    margin: 0,
-    letterSpacing: 4,
-    textTransform: 'uppercase' as const,
-    WebkitTextStroke: '2px rgba(201,168,76,0.3)',
+  kwSvgGhost: {
+    position: 'absolute' as const,
+    top: -6,
+    left: -4,
   },
-  keywordSub: {
-    color: '#555',
-    fontSize: 34,
+  kwSvg: { display: 'block' },
+  kwSub: {
+    color: '#444',
+    fontSize: 28,
     fontFamily: SW.fontBody,
-    margin: '8px 0 0',
-    letterSpacing: 3,
+    margin: '4px 0 0',
+    letterSpacing: 4,
     textTransform: 'uppercase' as const,
   },
 };
