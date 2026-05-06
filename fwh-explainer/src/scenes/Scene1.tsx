@@ -1,5 +1,6 @@
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Character } from '../Character';
+import { SW } from '../theme';
 
 export const Scene1: React.FC = () => {
   const frame = useCurrentFrame();
@@ -13,15 +14,15 @@ export const Scene1: React.FC = () => {
 
   return (
     <AbsoluteFill style={styles.container}>
-      <AbsoluteFill style={styles.bg} />
-      <AbsoluteFill style={styles.noise} />
+      {/* Grain texture */}
+      <AbsoluteFill style={styles.grain} />
 
-      {/* Gold corner accent */}
-      <div style={styles.cornerAccentTL} />
-      <div style={styles.cornerAccentBR} />
+      {/* Thin gold top bar */}
+      <div style={styles.topBar} />
 
       {/* Title */}
       <div style={{ ...styles.titleBox, opacity: titleOpacity, transform: `translateY(${titleY}px)` }}>
+        <p style={styles.titleLabel}>THE QUESTION</p>
         <p style={styles.titleText}>Was steckt in deiner Cap?</p>
       </div>
 
@@ -40,48 +41,52 @@ export const Scene1: React.FC = () => {
 };
 
 const styles: Record<string, React.CSSProperties> = {
-  container: { overflow: 'hidden', background: '#0a0a0a' },
-  bg: {
-    background: 'radial-gradient(ellipse at 50% 40%, #1a1a1a 0%, #0a0a0a 70%)',
+  container: { overflow: 'hidden', background: SW.bgPure },
+  grain: {
+    backgroundImage: SW.grain,
+    backgroundRepeat: 'repeat',
+    opacity: 0.8,
   },
-  noise: {
-    backgroundImage: 'repeating-linear-gradient(45deg, rgba(201,168,76,0.03) 0px, rgba(201,168,76,0.03) 1px, transparent 1px, transparent 20px)',
-  },
-  cornerAccentTL: {
+  topBar: {
     position: 'absolute',
     top: 0,
     left: 0,
-    width: 200,
-    height: 200,
-    background: 'linear-gradient(135deg, rgba(201,168,76,0.15) 0%, transparent 60%)',
-  },
-  cornerAccentBR: {
-    position: 'absolute',
-    bottom: 0,
     right: 0,
-    width: 200,
-    height: 200,
-    background: 'linear-gradient(315deg, rgba(201,168,76,0.15) 0%, transparent 60%)',
+    height: 6,
+    background: SW.gold,
   },
   titleBox: {
     position: 'absolute',
     top: 280,
     left: 50,
     right: 50,
-    background: '#161616',
-    borderRadius: 20,
-    padding: '30px 40px',
-    border: '2px solid rgba(201,168,76,0.5)',
-    boxShadow: '0 0 40px rgba(201,168,76,0.12)',
+    background: SW.bgCard,
+    borderRadius: 4,
+    padding: '28px 40px 32px',
+    borderLeft: `6px solid ${SW.gold}`,
+    borderTop: '1px solid rgba(201,168,76,0.2)',
+    borderRight: '1px solid rgba(201,168,76,0.2)',
+    borderBottom: '1px solid rgba(201,168,76,0.2)',
+  },
+  titleLabel: {
+    color: SW.gold,
+    fontSize: 22,
+    fontWeight: 700,
+    fontFamily: SW.fontBody,
+    letterSpacing: 6,
+    margin: '0 0 10px',
+    textTransform: 'uppercase' as const,
   },
   titleText: {
     color: '#ffffff',
     fontSize: 58,
     fontWeight: 900,
-    textAlign: 'center',
-    fontFamily: 'sans-serif',
+    textAlign: 'left' as const,
+    fontFamily: SW.fontDisplay,
     margin: 0,
-    lineHeight: 1.2,
+    lineHeight: 1.1,
+    letterSpacing: -1,
+    textTransform: 'uppercase' as const,
   },
   charWrap: {
     position: 'absolute',
@@ -91,26 +96,27 @@ const styles: Record<string, React.CSSProperties> = {
   },
   keyword: {
     position: 'absolute',
-    top: 1100,
+    top: 1090,
     left: 50,
     right: 50,
     textAlign: 'center',
     transformOrigin: 'center',
   },
   keywordText: {
-    color: '#C9A84C',
-    fontSize: 100,
-    fontWeight: 900,
-    fontFamily: 'sans-serif',
+    color: SW.gold,
+    fontSize: 108,
+    fontFamily: SW.fontDisplay,
     margin: 0,
-    letterSpacing: -2,
-    textShadow: '0 0 60px rgba(201,168,76,0.4)',
+    letterSpacing: 4,
+    textTransform: 'uppercase' as const,
+    WebkitTextStroke: '2px rgba(201,168,76,0.3)',
   },
   keywordSub: {
-    color: '#666',
-    fontSize: 38,
-    fontFamily: 'sans-serif',
-    margin: '10px 0 0',
-    fontWeight: 500,
+    color: '#555',
+    fontSize: 34,
+    fontFamily: SW.fontBody,
+    margin: '8px 0 0',
+    letterSpacing: 3,
+    textTransform: 'uppercase' as const,
   },
 };

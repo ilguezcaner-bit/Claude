@@ -1,5 +1,6 @@
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Character } from '../Character';
+import { SW } from '../theme';
 
 export const Scene2: React.FC = () => {
   const frame = useCurrentFrame();
@@ -12,14 +13,12 @@ export const Scene2: React.FC = () => {
 
   return (
     <AbsoluteFill style={styles.container}>
-      <AbsoluteFill style={styles.bg} />
-      <AbsoluteFill style={styles.noise} />
-
-      <div style={styles.cornerAccentTL} />
-      <div style={styles.cornerAccentBR} />
+      <AbsoluteFill style={styles.grain} />
+      <div style={styles.topBar} />
 
       {/* Title */}
       <div style={styles.titleBox}>
+        <p style={styles.titleLabel}>THE PROBLEM</p>
         <p style={styles.titleText}>Mehr Reibung. Weniger Feuchtigkeit.</p>
       </div>
 
@@ -33,13 +32,13 @@ export const Scene2: React.FC = () => {
         <svg width="380" height="100" viewBox="0 0 380 100">
           <defs>
             <marker id="ah2" markerWidth="12" markerHeight="9" refX="12" refY="4.5" orient="auto">
-              <polygon points="0 0, 12 4.5, 0 9" fill="#E8334A" />
+              <polygon points="0 0, 12 4.5, 0 9" fill={SW.red} />
             </marker>
           </defs>
-          <text x="190" y="28" textAnchor="middle" fill="#E8334A"
-            fontSize="24" fontWeight="900" fontFamily="sans-serif">REIBUNG</text>
+          <text x="190" y="28" textAnchor="middle" fill={SW.red}
+            fontSize="24" fontWeight="900" fontFamily="Impact, sans-serif" letterSpacing="4">REIBUNG</text>
           <line x1="20" y1="60" x2={20 + arrowLen} y2="60"
-            stroke="#E8334A" strokeWidth="8" strokeLinecap="round"
+            stroke={SW.red} strokeWidth="8" strokeLinecap="round"
             markerEnd="url(#ah2)" />
         </svg>
         <svg width="220" height="80" viewBox="0 0 220 80">
@@ -47,11 +46,11 @@ export const Scene2: React.FC = () => {
             <line key={i}
               x1={20 + i * 36} y1="10"
               x2={20 + i * 36 + (i % 2 === 0 ? 12 : -12)} y2="70"
-              stroke="#C9A84C" strokeWidth="4" strokeLinecap="round"
+              stroke={SW.gold} strokeWidth="4" strokeLinecap="round"
               style={{ opacity: arrowProgress }} />
           ))}
-          <text x="110" y="78" textAnchor="middle" fontSize="20"
-            fontFamily="sans-serif" fill="#666">Haar</text>
+          <text x="110" y="78" textAnchor="middle" fontSize="18"
+            fontFamily="Impact, sans-serif" fill="#444" letterSpacing="2">HAAR</text>
         </svg>
       </div>
 
@@ -65,46 +64,41 @@ export const Scene2: React.FC = () => {
 };
 
 const styles: Record<string, React.CSSProperties> = {
-  container: { overflow: 'hidden', background: '#0a0a0a' },
-  bg: {
-    background: 'radial-gradient(ellipse at 50% 40%, #1a0808 0%, #0a0a0a 70%)',
-  },
-  noise: {
-    backgroundImage: 'repeating-linear-gradient(45deg, rgba(201,168,76,0.03) 0px, rgba(201,168,76,0.03) 1px, transparent 1px, transparent 20px)',
-  },
-  cornerAccentTL: {
-    position: 'absolute', top: 0, left: 0, width: 200, height: 200,
-    background: 'linear-gradient(135deg, rgba(232,51,74,0.12) 0%, transparent 60%)',
-  },
-  cornerAccentBR: {
-    position: 'absolute', bottom: 0, right: 0, width: 200, height: 200,
-    background: 'linear-gradient(315deg, rgba(232,51,74,0.12) 0%, transparent 60%)',
-  },
+  container: { overflow: 'hidden', background: SW.bgPure },
+  grain: { backgroundImage: SW.grain, backgroundRepeat: 'repeat', opacity: 0.8 },
+  topBar: { position: 'absolute', top: 0, left: 0, right: 0, height: 6, background: SW.red },
   titleBox: {
     position: 'absolute',
     top: 280,
     left: 50,
     right: 50,
-    background: '#160808',
-    borderRadius: 20,
-    padding: '30px 40px',
-    border: '2px solid rgba(232,51,74,0.4)',
-    boxShadow: '0 0 40px rgba(232,51,74,0.1)',
+    background: SW.bgCardRed,
+    borderRadius: 4,
+    padding: '28px 40px 32px',
+    borderLeft: `6px solid ${SW.red}`,
+    borderTop: '1px solid rgba(232,51,74,0.2)',
+    borderRight: '1px solid rgba(232,51,74,0.2)',
+    borderBottom: '1px solid rgba(232,51,74,0.2)',
+  },
+  titleLabel: {
+    color: SW.red,
+    fontSize: 22,
+    fontWeight: 700,
+    fontFamily: SW.fontBody,
+    letterSpacing: 6,
+    margin: '0 0 10px',
+    textTransform: 'uppercase' as const,
   },
   titleText: {
-    color: '#E8334A',
+    color: '#ffffff',
     fontSize: 54,
-    fontWeight: 900,
-    textAlign: 'center',
-    fontFamily: 'sans-serif',
+    fontFamily: SW.fontDisplay,
     margin: 0,
-    lineHeight: 1.2,
+    lineHeight: 1.1,
+    letterSpacing: -1,
+    textTransform: 'uppercase' as const,
   },
-  charWrap: {
-    position: 'absolute',
-    top: 460,
-    left: 40,
-  },
+  charWrap: { position: 'absolute', top: 460, left: 40 },
   arrowArea: {
     position: 'absolute',
     top: 540,
@@ -115,26 +109,27 @@ const styles: Record<string, React.CSSProperties> = {
   },
   keyword: {
     position: 'absolute',
-    top: 1100,
+    top: 1090,
     left: 50,
     right: 50,
     textAlign: 'center',
     transformOrigin: 'center',
   },
   keywordText: {
-    color: '#E8334A',
+    color: SW.red,
     fontSize: 110,
-    fontWeight: 900,
-    fontFamily: 'sans-serif',
+    fontFamily: SW.fontDisplay,
     margin: 0,
-    letterSpacing: -2,
-    textShadow: '0 0 60px rgba(232,51,74,0.5)',
+    letterSpacing: 4,
+    textTransform: 'uppercase' as const,
+    WebkitTextStroke: `2px rgba(232,51,74,0.3)`,
   },
   keywordSub: {
-    color: '#666',
-    fontSize: 36,
-    fontFamily: 'sans-serif',
-    margin: '10px 0 0',
-    fontWeight: 500,
+    color: '#555',
+    fontSize: 32,
+    fontFamily: SW.fontBody,
+    margin: '8px 0 0',
+    letterSpacing: 3,
+    textTransform: 'uppercase' as const,
   },
 };
