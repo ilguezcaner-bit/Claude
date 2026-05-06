@@ -7,6 +7,7 @@
   "private": true,
   "dependencies": {
     "@remotion/cli": "4.0.457",
+    "@remotion/google-fonts": "^4.0.457",
     "@remotion/tailwind-v4": "4.0.457",
     "lucide-react": "^1.14.0",
     "react": "19.2.3",
