@@ -14,8 +14,8 @@ export const SW = {
   green: '#00C853',
 
   // Typography — Bebas Neue: the streetwear standard
-  fontDisplay: '"Bebas Neue", "Impact", sans-serif',
-  fontBody: '"Bebas Neue", "Impact", sans-serif',
+  fontDisplay: '"Anton", "Impact", sans-serif',
+  fontBody: '"Anton", "Impact", sans-serif',
 
   // Borders
   borderGold: '2px solid rgba(201,168,76,0.6)',

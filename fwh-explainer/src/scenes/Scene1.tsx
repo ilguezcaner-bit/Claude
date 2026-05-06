@@ -50,7 +50,7 @@ export const Scene1: React.FC = () => {
         <svg width="980" height="160" viewBox="0 0 980 160" style={styles.kwSvgGhost}>
           <text x="490" y="140" textAnchor="middle" textLength="980" lengthAdjust="spacingAndGlyphs"
             fontSize="160" fontFamily="Impact, 'Arial Black', sans-serif"
-            fill="none" stroke="rgba(201,168,76,0.15)" strokeWidth="2">BAUMWOLLE</text>
+            fill="none" stroke="rgba(201,168,76,0.15)" strokeWidth="3">BAUMWOLLE</text>
         </svg>
         {/* Solid */}
         <svg width="980" height="160" viewBox="0 0 980 160" style={styles.kwSvg}>

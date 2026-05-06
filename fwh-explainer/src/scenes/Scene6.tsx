@@ -59,7 +59,7 @@ export const Scene6: React.FC = () => {
           <svg width="980" height="120" viewBox="0 0 980 120"
             style={{ display: 'block', opacity: l1o, transform: `translateY(${l1y}px)` }}>
             <text x="0" y="105" textLength="980" lengthAdjust="spacingAndGlyphs"
-              fontSize="112" fontFamily="Impact, sans-serif" fill="#ffffff">BEI UNS</text>
+              fontSize="112" fontFamily="Anton, Impact, sans-serif" fill="#ffffff">BEI UNS</text>
           </svg>
         </div>
 
@@ -68,8 +68,8 @@ export const Scene6: React.FC = () => {
           <svg width="980" height="130" viewBox="0 0 980 130"
             style={{ display: 'block', opacity: l2o, transform: `translateY(${l2y}px)` }}>
             <text x="0" y="115" textLength="980" lengthAdjust="spacingAndGlyphs"
-              fontSize="120" fontFamily="Impact, sans-serif"
-              fill="none" stroke={SW.gold} strokeWidth="3">ZÄHLEN</text>
+              fontSize="120" fontFamily="Anton, Impact, sans-serif"
+              fill="none" stroke={SW.gold} strokeWidth="5">ZÄHLEN</text>
           </svg>
         </div>
 
@@ -79,7 +79,7 @@ export const Scene6: React.FC = () => {
             <p style={styles.smallLine}>auch die</p>
             <svg width="980" height="130" viewBox="0 0 980 130" style={{ display: 'block' }}>
               <text x="0" y="115" textLength="980" lengthAdjust="spacingAndGlyphs"
-                fontSize="120" fontFamily="Impact, sans-serif" fill="#ffffff">INNEREN WERTE.</text>
+                fontSize="120" fontFamily="Anton, Impact, sans-serif" fill="#ffffff">INNEREN WERTE.</text>
             </svg>
           </div>
         </div>

@@ -67,10 +67,10 @@ export const Scene5: React.FC = () => {
       <div style={{ ...styles.kwWrap, opacity: kwOpacity, transform: `translateY(${kwY}px)` }}>
         <svg width="980" height="100" viewBox="0 0 980 100">
           <text x="10" y="88" textLength="460" lengthAdjust="spacingAndGlyphs"
-            fontSize="96" fontFamily="Impact, sans-serif" fill={SW.gold}>FRISUR</text>
+            fontSize="96" fontFamily="Anton, Impact, sans-serif" fill={SW.gold}>FRISUR</text>
           <text x="490" y="88" textLength="480" lengthAdjust="spacingAndGlyphs"
-            fontSize="96" fontFamily="Impact, sans-serif"
-            fill="none" stroke="#fff" strokeWidth="2">SITZT</text>
+            fontSize="96" fontFamily="Anton, Impact, sans-serif"
+            fill="none" stroke="#fff" strokeWidth="3">SITZT</text>
         </svg>
         <p style={styles.kwSub}>Dank Premium-Satin innen</p>
       </div>

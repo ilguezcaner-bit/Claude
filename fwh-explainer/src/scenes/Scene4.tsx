@@ -59,12 +59,12 @@ export const Scene4: React.FC = () => {
       <div style={{ ...styles.kwWrap, opacity: kwOpacity, transform: `translateY(${kwY}px)` }}>
         <svg width="980" height="180" viewBox="0 0 980 180" style={styles.kwGhost}>
           <text x="490" y="160" textAnchor="middle" textLength="980" lengthAdjust="spacingAndGlyphs"
-            fontSize="180" fontFamily="Impact, sans-serif"
-            fill="none" stroke="rgba(201,168,76,0.12)" strokeWidth="2">SATIN</text>
+            fontSize="180" fontFamily="Anton, Impact, sans-serif"
+            fill="none" stroke="rgba(201,168,76,0.12)" strokeWidth="3">SATIN</text>
         </svg>
         <svg width="980" height="180" viewBox="0 0 980 180" style={styles.kwSvg}>
           <text x="490" y="160" textAnchor="middle" textLength="940" lengthAdjust="spacingAndGlyphs"
-            fontSize="170" fontFamily="Impact, sans-serif" fill={SW.gold}>SATIN</text>
+            fontSize="170" fontFamily="Anton, Impact, sans-serif" fill={SW.gold}>SATIN</text>
         </svg>
         <p style={styles.kwSub}>Smooth · Kein Frizz · Kein Haarbruch</p>
       </div>

@@ -62,12 +62,12 @@ export const Scene3: React.FC = () => {
       <div style={{ ...styles.kwWrap, opacity: kwOpacity, transform: `translateY(${kwY}px)` }}>
         <svg width="980" height="160" viewBox="0 0 980 160" style={styles.kwGhost}>
           <text x="490" y="140" textAnchor="middle" textLength="980" lengthAdjust="spacingAndGlyphs"
-            fontSize="160" fontFamily="Impact, sans-serif"
-            fill="none" stroke="rgba(232,51,74,0.1)" strokeWidth="2">SCHADEN</text>
+            fontSize="160" fontFamily="Anton, Impact, sans-serif"
+            fill="none" stroke="rgba(232,51,74,0.1)" strokeWidth="3">SCHADEN</text>
         </svg>
         <svg width="980" height="160" viewBox="0 0 980 160" style={styles.kwSvg}>
           <text x="490" y="140" textAnchor="middle" textLength="940" lengthAdjust="spacingAndGlyphs"
-            fontSize="150" fontFamily="Impact, sans-serif" fill={SW.red}>SCHADEN</text>
+            fontSize="150" fontFamily="Anton, Impact, sans-serif" fill={SW.red}>SCHADEN</text>
         </svg>
         <p style={styles.kwSub}>Frizz · Haarbruch · Trockenheit</p>
       </div>

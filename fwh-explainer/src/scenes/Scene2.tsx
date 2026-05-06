@@ -47,7 +47,7 @@ export const Scene2: React.FC = () => {
             </marker>
           </defs>
           <text x="180" y="24" textAnchor="middle" fill={SW.red}
-            fontSize="20" fontFamily="Impact, sans-serif" letterSpacing="6">REIBUNG</text>
+            fontSize="20" fontFamily="Anton, Impact, sans-serif" letterSpacing="6">REIBUNG</text>
           <line x1="10" y1="55" x2={10 + arrowLen} y2="55"
             stroke={SW.red} strokeWidth="7" strokeLinecap="round" markerEnd="url(#ah2)" />
         </svg>
@@ -65,12 +65,12 @@ export const Scene2: React.FC = () => {
       <div style={{ ...styles.kwWrap, opacity: kwOpacity, transform: `translateY(${kwY}px)` }}>
         <svg width="980" height="160" viewBox="0 0 980 160" style={styles.kwGhost}>
           <text x="490" y="140" textAnchor="middle" textLength="980" lengthAdjust="spacingAndGlyphs"
-            fontSize="160" fontFamily="Impact, sans-serif"
-            fill="none" stroke="rgba(232,51,74,0.12)" strokeWidth="2">REIBUNG</text>
+            fontSize="160" fontFamily="Anton, Impact, sans-serif"
+            fill="none" stroke="rgba(232,51,74,0.12)" strokeWidth="3">REIBUNG</text>
         </svg>
         <svg width="980" height="160" viewBox="0 0 980 160" style={styles.kwSvg}>
           <text x="490" y="140" textAnchor="middle" textLength="940" lengthAdjust="spacingAndGlyphs"
-            fontSize="150" fontFamily="Impact, sans-serif" fill={SW.red}>REIBUNG</text>
+            fontSize="150" fontFamily="Anton, Impact, sans-serif" fill={SW.red}>REIBUNG</text>
         </svg>
         <p style={styles.kwSub}>Baumwolle schadet deinem Haar</p>
       </div>
