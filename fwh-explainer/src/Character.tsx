@@ -52,21 +52,35 @@ export const Character: React.FC<CharacterProps> = ({ mood = 'explaining', scale
       {/* Kangaroo pocket */}
       <rect x="118" y="305" width="84" height="50" rx="14" fill="#0a0a0a" />
 
-      {/* FWH logo on chest */}
-      <text x="160" y="272" textAnchor="middle" fontSize="22" fontWeight="900"
-        fontFamily="sans-serif" fill="#C9A84C" letterSpacing="1">FWH</text>
-
       {/* Gold chain */}
-      <path d="M130 228 Q160 252 190 228" fill="none" stroke="#C9A84C" strokeWidth="4.5" strokeLinecap="round" />
-      <ellipse cx="160" cy="250" rx="7" ry="7" fill="#C9A84C" />
-      <ellipse cx="160" cy="250" rx="3.5" ry="3.5" fill="#0a0a0a" />
+      <path d="M130 228 Q160 246 190 228" fill="none" stroke="#C9A84C" strokeWidth="4.5" strokeLinecap="round" />
+
+      {/* FWH gothic shield badge on chest */}
+      <g transform="translate(133, 244)">
+        <polygon points="27,0 53,16 53,38 27,56 1,38 1,16"
+          fill="rgba(201,168,76,0.14)" stroke="#C9A84C" strokeWidth="2.2" strokeLinejoin="round" />
+        <text x="27" y="30" textAnchor="middle" fontSize="21" fontWeight="900"
+          fontFamily="Georgia, 'Palatino Linotype', serif" fill="#C9A84C" letterSpacing="-1">fWH</text>
+        <path d="M10 42 Q19 52 27 55 Q35 52 44 42"
+          fill="none" stroke="#C9A84C" strokeWidth="2" strokeLinecap="round" opacity="0.85" />
+      </g>
 
       {/* Left arm */}
       <g style={{ transformOrigin: '90px 228px', transform: `rotate(${mood === 'confused' ? 30 : armAngle}deg)` }}>
         <rect x="55" y="216" width="44" height="120" rx="22" fill="#111" />
         <rect x="57" y="318" width="40" height="16" rx="7" fill="#0a0a0a" />
         <ellipse cx="77" cy="346" rx="20" ry="20" fill="#F4C27F" />
-        {mood === 'confused' && <text x="28" y="318" fontSize="34">🤷</text>}
+        {mood === 'confused' && (
+          <g transform="translate(16, 308)">
+            {/* Small cotton cap held in hand */}
+            <path d="M4 14 Q18 3 34 14 L32 18 Q18 8 6 18 Z" fill="#555" />
+            <ellipse cx="20" cy="19" rx="17" ry="8" fill="#666" />
+            <rect x="0" y="14" width="12" height="8" rx="3" fill="#444" />
+            {/* ❌ = bad cotton cap */}
+            <line x1="11" y1="6" x2="21" y2="14" stroke="#E8334A" strokeWidth="3" strokeLinecap="round" />
+            <line x1="21" y1="6" x2="11" y2="14" stroke="#E8334A" strokeWidth="3" strokeLinecap="round" />
+          </g>
+        )}
       </g>
 
       {/* Right arm */}
