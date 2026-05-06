@@ -13,9 +13,9 @@ export const SW = {
   redGlow: 'rgba(232,51,74,0.5)',
   green: '#00C853',
 
-  // Typography — Impact for max streetwear energy
-  fontDisplay: '"Impact", "Arial Black", "Franklin Gothic Heavy", sans-serif',
-  fontBody: '"Arial Black", "Impact", sans-serif',
+  // Typography — Bebas Neue: the streetwear standard
+  fontDisplay: '"Bebas Neue", "Impact", sans-serif',
+  fontBody: '"Bebas Neue", "Impact", sans-serif',
 
   // Borders
   borderGold: '2px solid rgba(201,168,76,0.6)',
