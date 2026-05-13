@@ -1,0 +1,125 @@
+{
+  "captured_at": "2026-05-13T13:00:00+02:00",
+  "shop": {
+    "name": "Smuuve",
+    "domain": "smuuve.myshopify.com",
+    "currency": "EUR",
+    "country": "Germany",
+    "plan": "Basic"
+  },
+  "baselines": {
+    "last_7_days": {
+      "orders": 0,
+      "gross_sales_eur": 0,
+      "average_order_value_eur": null,
+      "note": "Confirms the '1 sale/week' framing was generous - actual last-7d was 0."
+    },
+    "last_30_days": {
+      "sessions": 232,
+      "conversion_rate": 0.0216
+    },
+    "last_90_days": {
+      "orders": 15,
+      "gross_sales_eur": 919.29,
+      "average_order_value_eur": 44.70
+    }
+  },
+  "product_mix_last_365_days": [
+    {"title": "SMUUVE SMOOTHING SPRAY", "gid": "gid://shopify/Product/6914161148064", "orders": 36, "gross_sales_eur": 1573.00, "price_eur": 44.95, "inventory": 708, "status": "ACTIVE"},
+    {"title": "SMUUVE - PROBE KIT",     "gid": "gid://shopify/Product/6914158362784", "orders": 29, "gross_sales_eur": 1838.82, "price_eur": 74.95, "inventory": 505, "status": "ACTIVE"},
+    {"title": "SMUUVE - ALL-IN-ONE SET","gid": "gid://shopify/Product/7149620199584", "orders": 16, "gross_sales_eur": 1141.51, "price_eur": 84.95, "inventory": 201, "status": "ACTIVE"},
+    {"title": "SMUUVE SHAMPOO & CONDITIONER", "gid": "gid://shopify/Product/6914160623776", "orders": 8, "gross_sales_eur": 155.40, "price_eur": 19.95, "inventory": 522, "status": "ACTIVE"},
+    {"title": "SMUUVE PROTECTION SPRAY", "gid": "gid://shopify/Product/7059645366432", "orders": 6, "gross_sales_eur": 99.67, "price_eur": 16.95, "inventory": 209, "status": "ACTIVE"}
+  ],
+  "draft_products_found": [
+    {
+      "title": "SMUUVE COMPLETE SET",
+      "gid": "gid://shopify/Product/10192257384777",
+      "price_eur": 99.95,
+      "status": "DRAFT",
+      "tags": ["100k-funnel", "bundle", "complete", "hero-offer"],
+      "created_at": "2026-05-13T11:27:50Z",
+      "note": "Created today, no inventory, no images. Tagged 'hero-offer' - conflicts with the activation pack's positioning of PROBE KIT as hero. Needs founder decision before launch."
+    },
+    {
+      "title": "SMUUVE REFILL SET",
+      "gid": "gid://shopify/Product/10192257417545",
+      "price_eur": 59.95,
+      "status": "DRAFT",
+      "tags": ["100k-funnel", "bundle", "refill", "repeat-customer"],
+      "created_at": "2026-05-13T11:27:56Z",
+      "note": "Created today, no inventory, no images. Intended for repeat-customer flow."
+    }
+  ],
+  "referrer_source_last_90_days": [
+    {"source": "(none / direct)", "orders": 10},
+    {"source": "search", "orders": 5}
+  ],
+  "referrer_source_note": "Zero social, zero paid. 70%+ external traffic target is a complete step-change, not an incremental shift.",
+  "customer_audience": {
+    "customers_with_at_least_one_order": "50+ (page-1 cap; total likely higher)",
+    "page_sample_size": 50,
+    "earliest_in_sample": "2025-04-22",
+    "most_recent_in_sample": "2026-05-04",
+    "intended_use": "Re-engagement audience for COMEBACK20"
+  },
+  "shopify_actions_executed_this_session": [
+    {
+      "type": "discount_code",
+      "code": "WELCOME15",
+      "gid": "gid://shopify/DiscountCodeNode/1855188599113",
+      "percentage": 15,
+      "starts_at": "2026-05-13T12:00:00Z",
+      "ends_at": "2026-06-12T21:59:59Z",
+      "applies_once_per_customer": true,
+      "applies_to": "All products",
+      "minimum_requirement": "None"
+    },
+    {
+      "type": "discount_code",
+      "code": "COMEBACK20",
+      "gid": "gid://shopify/DiscountCodeNode/1855188697417",
+      "percentage": 20,
+      "starts_at": "2026-05-13T12:00:00Z",
+      "ends_at": "2026-05-19T21:59:59Z",
+      "applies_once_per_customer": true,
+      "applies_to": "All products",
+      "minimum_requirement": "None"
+    },
+    {
+      "type": "collection",
+      "title": "Smuuve System",
+      "handle": "smuuve-system",
+      "gid": "gid://shopify/Collection/690773950793",
+      "sort_order": "MANUAL",
+      "products_in_order": [
+        "SMUUVE - PROBE KIT",
+        "SMUUVE - ALL-IN-ONE SET",
+        "SMUUVE SMOOTHING SPRAY"
+      ]
+    },
+    {
+      "type": "product_description_rewrite",
+      "product": "SMUUVE - PROBE KIT",
+      "gid": "gid://shopify/Product/6914158362784",
+      "sections": ["hero hook", "kit contents", "value vs. salon", "application steps", "guarantee", "CTA"],
+      "tags_preserved": ["__tab1:one-complete-professional-kit", "__tab2:ingedients", "__tab3:the-5-most-faq"]
+    }
+  ],
+  "week_1_targets_from_pack": {
+    "additional_orders": "5-10",
+    "additional_revenue_eur": "400-800",
+    "target_aov_eur": "55+",
+    "target_sessions_per_day": "50+",
+    "target_external_traffic_share": "70%+",
+    "minimum_conversion_rate": "0.02"
+  },
+  "blockers_for_full_launch": [
+    "Higgsfield API key (Block H1)",
+    "Meta Pixel ID + Conversions API token (Block P2/P3)",
+    "Meta Ad Account ID, System User token, Page ID, Instagram BA ID (Block M1-M4)",
+    "Domain smuuve.com verification in Meta Business Manager (Block P4)",
+    "Founder decision on launch state: live vs paused at 2026-05-14T00:00 CEST (Block M7)",
+    "Founder decision on DRAFT bundles vs. PROBE KIT as Week-1 hero"
+  ]
+}
