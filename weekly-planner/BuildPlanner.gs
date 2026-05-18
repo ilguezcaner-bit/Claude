@@ -1,9 +1,9 @@
 /**
  * BUILT2WIN — Weekly Planner (V7)  ·  Generator
  * --------------------------------------------------------------
- * Baut den kompletten Weekly Planner in 4 Tabs auf:
- *   1) Wochenplan        2) Projekte & Kunden
- *   3) Daily Wins        4) Wochen-Review
+ * Baut den kompletten Weekly Planner in 5 Tabs auf:
+ *   1) Wochenplan   2) Trainingsplan   3) Projekte & Kunden
+ *   4) Daily Wins   5) Wochen-Review
  *
  * BEDIENUNG (einmalig):
  *   Sheet oeffnen  ->  Erweiterungen  ->  Apps Script
@@ -26,9 +26,11 @@ function buildPlanner() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   ss.rename('BUILT2WIN — Weekly Planner (V7)');
 
-  var keep = ['Wochenplan', 'Projekte & Kunden', 'Daily Wins', 'Wochen-Review'];
+  var keep = ['Wochenplan', 'Trainingsplan', 'Projekte & Kunden',
+              'Daily Wins', 'Wochen-Review'];
 
   buildWochenplan_(freshSheet_(ss, 'Wochenplan'));
+  buildTrainingsplan_(freshSheet_(ss, 'Trainingsplan'));
   buildProjekte_(freshSheet_(ss, 'Projekte & Kunden'));
   buildDailyWins_(freshSheet_(ss, 'Daily Wins'));
   buildReview_(freshSheet_(ss, 'Wochen-Review'));
@@ -72,150 +74,151 @@ function buildWochenplan_(sh) {
                '22:00','23:00','00:00','01:00','02:00','03:00','04:00','05:00'];
 
   var S  = 'Schlaf';
-  var Sf = 'Schlaf · Fajr-Fenster (Sommer ~03:30, Wecker optional)';
+  var FA = 'Schlaf · 🕌 Fajr 02:53 (Wecker optional)';
+  var HT = 'Aufstehen · Heimtrainer 25–30 Min Zone 2 (nüchtern, Buch)';
 
-  // Index 0 = 06:00 ... Index 23 = 05:00
+  // Index 0 = 06:00 ... Index 23 = 05:00 · Gebetszeiten Hannover (Diyanet, ~KW21)
   var Mo = [S,
-    'Aufstehen 07:00 · Wasser · Intention',
-    'Gym — Training (lt. Trainingsplan)',
+    HT,
+    'Gym — Brust + Rücken (Plan 1 · Version A/B)',
     'Gym / Dusche / Frühstück',
     'Uni: Vorlesung / Übung / Lernen',
     'Uni: Vorlesung / Übung / Lernen',
     'Uni / BWL Lernen',
-    '🕌 Dhuhr · Lunch · Reset',
+    '🕌 Dhuhr 13:22 · Lunch · Reset',
     'Dreh / Content-Produktion (Agentur)',
     'Agentur: Dreh / Schnitt',
     'Agentur: Smuuve Wochen-Checkup',
-    '🕌 Asr · Agentur',
+    '🕌 Asr 17:38 · Agentur',
     'Agentur Abschluss / Puffer',
     'Abendessen / Pause',
     'BWL Lernen light / Content',
-    '🕌 Maghrib · 3 Dankbarkeiten',
+    '🕌 Maghrib 21:27 · 3 Dankbarkeiten',
     'Freizeit / Prep nächster Tag',
-    '🕌 Yatsi · Shutdown (Walk·Journal·Read)',
-    S, S, S, Sf, S, S];
+    '🕌 Yatsi 23:35 · Shutdown (Walk·Journal·Read)',
+    S, S, FA, S, S, S];
 
   var Di = [S,
-    'Aufstehen 07:00 · Routine · Frühstück',
-    'Prep / Orga',
+    HT,
+    'Frühstück / Prep',
     'Anfahrt Gym',
-    'Gym — Training (lt. Trainingsplan)',
-    'Gym / Dusche / Snack to-go',
+    'Gym — Beine + Schulter/Arm Finisher (Plan 2)',
+    'Gym Ende / Dusche / Snack to-go',
     'Fahrt nach Salzgitter',
-    'Salzgitter (Uni) · 🕌 Dhuhr unterwegs',
+    'Salzgitter (Uni) · 🕌 Dhuhr 13:22 unterwegs',
     'Salzgitter (Uni)',
     'Salzgitter (Uni)',
     'Rückfahrt / Puffer',
-    'Uni: BWL Lernen · 🕌 Asr',
+    'Uni: BWL Lernen · 🕌 Asr 17:38',
     'BWL Lernen',
     'BWL Lernen / Abendessen',
     'Lernen light / Agentur Minimal-Check',
-    '🕌 Maghrib · 3 Dankbarkeiten',
+    '🕌 Maghrib 21:27 · 3 Dankbarkeiten',
     'Shutdown-Vorbereitung',
-    '🕌 Yatsi · Shutdown',
-    S, S, S, Sf, S, S];
+    '🕌 Yatsi 23:35 · Shutdown',
+    S, S, FA, S, S, S];
 
   var Mi = [S,
-    'Aufstehen 07:00 · Wasser · Intention',
-    'Gym — Training (lt. Trainingsplan)',
-    'Gym / Dusche / Frühstück',
+    HT,
+    'Schwimmen 20–30 Min (Technik) · ggf. Norweger 4×4',
+    'Dusche / Frühstück',
     'BWL Lernen / Prep Braunschweig',
     'Fahrt nach Braunschweig',
     'Braunschweig (Uni)',
-    'Braunschweig (Uni) · 🕌 Dhuhr',
+    'Braunschweig (Uni) · 🕌 Dhuhr 13:22',
     'Braunschweig (Uni)',
     'Braunschweig (Uni)',
     'Rückfahrt',
-    'BWL Lernen · 🕌 Asr',
+    'BWL Lernen · 🕌 Asr 17:38',
     'BWL Lernen',
     'Lernen / Abendessen',
     'Lernen light / Agentur Check',
-    '🕌 Maghrib · 3 Dankbarkeiten',
+    '🕌 Maghrib 21:27 · 3 Dankbarkeiten',
     'Freizeit',
-    '🕌 Yatsi · Shutdown',
-    S, S, S, Sf, S, S];
+    '🕌 Yatsi 23:35 · Shutdown',
+    S, S, FA, S, S, S];
 
   var Do = [S,
-    'Aufstehen 07:00 · Wasser · Intention',
-    'Gym — PUSH (Brust · Schulter · Trizeps)',
+    HT,
+    'Gym — PUSH (Plan 3 · Version A/B)',
     'Gym / Dusche / Frühstück',
     'Uni: Vorlesung / Übung / Lernen',
     'Uni: Vorlesung / Übung / Lernen',
     'Uni / BWL Lernen',
-    '🕌 Dhuhr · Lunch · Reset',
+    '🕌 Dhuhr 13:22 · Lunch · Reset',
     'Dreh / Content-Produktion (Agentur)',
     'Agentur: Dreh / Schnitt',
     'Agentur: Mon Frere Content-Planung',
-    '🕌 Asr · Agentur',
+    '🕌 Asr 17:38 · Agentur',
     'Agentur Abschluss / Puffer',
     'Abendessen / Pause',
     'BWL Lernen light / Content',
-    '🕌 Maghrib · 3 Dankbarkeiten',
+    '🕌 Maghrib 21:27 · 3 Dankbarkeiten',
     'Freizeit / Prep nächster Tag',
-    '🕌 Yatsi · Shutdown (Walk·Journal·Read)',
-    S, S, S, Sf, S, S];
+    '🕌 Yatsi 23:35 · Shutdown (Walk·Journal·Read)',
+    S, S, FA, S, S, S];
 
   var Fr = [S,
-    'Aufstehen 07:00 · Routine',
-    'Gym — Training (lt. Trainingsplan)',
+    HT,
+    'Gym — Pull + Kreuzheben (Plan 4 · Version A/B)',
     'Gym / Dusche / Frühstück',
     'BWL Lernen',
     'BWL Lernen',
     'Castello: Video Batch-Schnitt',
-    '🕌 Dhuhr · Lunch',
+    '🕌 Dhuhr 13:22 · Lunch',
     'Castello / Agentur Abschluss',
     'Vorbereitung / Fahrt — Job ab 15:30',
     'Werkstudentenjob',
-    'Werkstudentenjob · 🕌 Asr (kurz)',
+    'Werkstudentenjob · 🕌 Asr 17:38 (kurz)',
     'Werkstudentenjob',
     'Werkstudentenjob',
     'Werkstudentenjob',
-    'Werkstudentenjob · 🕌 Maghrib (kurz)',
+    'Werkstudentenjob · 🕌 Maghrib 21:27 (kurz)',
     'Werkstudentenjob',
-    'Werkstudentenjob · 🕌 Yatsi (kurz)',
+    'Werkstudentenjob · 🕌 Yatsi 23:35 (kurz)',
     'Feierabend 00:00 · Heimfahrt',
     'Shutdown / Schlaf',
-    S, Sf, S, S];
+    FA, S, S, S];
 
   var Sa = [S,
     'Schlaf / Ausschlafen',
     'Aufstehen · Frühstück',
-    'Gym — Training (lt. Trainingsplan)',
-    'Gym / Dusche',
-    'Vorbereitung / Fahrt Arbeit',
+    'Laufen 30–40 Min Zone 2 (oder Norweger 4×4)',
+    'Dusche / Vorbereitung',
+    'Fahrt Arbeit',
     'Werkstudentenjob',
-    'Werkstudentenjob · 🕌 Dhuhr (kurz)',
+    'Werkstudentenjob · 🕌 Dhuhr 13:22 (kurz)',
     'Werkstudentenjob',
     'Werkstudentenjob',
     'Werkstudentenjob',
-    'Werkstudentenjob · 🕌 Asr (kurz)',
+    'Werkstudentenjob · 🕌 Asr 17:38 (kurz)',
     'Werkstudentenjob',
     'Werkstudentenjob',
     'Feierabend 20:00 · Heimfahrt',
-    '🕌 Maghrib · Abendessen',
+    '🕌 Maghrib 21:27 · Abendessen',
     'Freizeit / Familie',
-    '🕌 Yatsi · Shutdown',
-    S, S, S, Sf, S, S];
+    '🕌 Yatsi 23:35 · Shutdown',
+    S, S, FA, S, S, S];
 
   var So = [S,
     'Schlaf / Ausschlafen erlaubt',
     'Aufstehen · ruhiger Morgen',
-    'Spaziergang / leichtes Cardio (oder Rest)',
+    'Heimtrainer locker / Spaziergang (Rest-Tag)',
     'Frühstück / Familie',
     'Wochenplanung (Tab Projekte & Kunden)',
     'BWL Lernen light',
-    '🕌 Dhuhr · Lunch',
+    '🕌 Dhuhr 13:22 · Lunch',
     'BWL Vorbereitung kommende Woche',
     'Agentur Wochenvorbereitung',
     'Puffer / Familie',
-    '🕌 Asr · Freizeit',
+    '🕌 Asr 17:38 · Freizeit',
     'Wochen-Review Tab ausfüllen',
     'Abendessen',
     'Entspannung',
-    '🕌 Maghrib · 3 Dankbarkeiten',
+    '🕌 Maghrib 21:27 · 3 Dankbarkeiten',
     'Freizeit (früh runterfahren)',
-    '🕌 Yatsi · Shutdown (früh ins Bett für Mo)',
-    S, S, S, Sf, S, S];
+    '🕌 Yatsi 23:35 · Shutdown (früh ins Bett für Mo)',
+    S, S, FA, S, S, S];
 
   var cols = [Mo, Di, Mi, Do, Fr, Sa, So];
   var rows = [];
@@ -253,17 +256,24 @@ function buildWochenplan_(sh) {
     '🟨 Gebet/Anker   🟩 Gym/Training   🟪 Agentur/Dreh   '
     + '🟧 Uni/Lernen/Fahrt   🟦 Werkstudentenjob   ⬜ Schlaf').setFontWeight('bold');
   sh.getRange(lr + 1, 1).setValue(
-    '⚠️ Gebetszeiten saisonal an deine lokale App anpassen · '
-    + 'Uni (Salzgitter Di, Braunschweig Mi) an echten Stundenplan anpassen · '
-    + 'Job: Fr 15:30–00:00, Sa 12:00–20:00 (Stand diesen Monat)')
+    '🕌 Gebetszeiten Hannover (Diyanet, ~KW21): Fajr 02:53 · Dhuhr 13:22 · '
+    + 'Asr 17:38 · Maghrib 21:27 · Yatsi 23:35 — driften saisonal, in App prüfen')
+    .setFontStyle('italic').setFontColor('#7A7A7A');
+  sh.getRange(lr + 2, 1).setValue(
+    'ℹ️ Uni (Salzgitter Di, Braunschweig Mi) an echten Stundenplan anpassen · '
+    + 'Job: Fr 15:30–00:00, Sa 12:00–20:00 (Stand diesen Monat) · '
+    + 'Training: Heimtrainer täglich morgens, Details im Tab „Trainingsplan“')
     .setFontStyle('italic').setFontColor('#7A7A7A');
 }
 
 /* Faerbt eine Wochenplan-Zelle nach Inhalt */
 function cellColor_(t) {
-  if (!t || t.indexOf('Schlaf') === 0) return '#EDEDED';
+  if (!t) return '#FFFFFF';
   if (t.indexOf('🕌') > -1) return '#FCEFC7';
-  if (t.indexOf('Gym') > -1 || t.indexOf('PUSH') > -1) return '#D6F5D6';
+  if (t.indexOf('Schlaf') === 0) return '#EDEDED';
+  if (t.indexOf('Gym') > -1 || t.indexOf('PUSH') > -1 || t.indexOf('Schwimmen') > -1
+      || t.indexOf('Laufen') > -1 || t.indexOf('Heimtrainer') > -1
+      || t.indexOf('Norweger') > -1) return '#D6F5D6';
   if (t.indexOf('Werkstudentenjob') > -1 || t.indexOf('Feierabend') > -1) return '#D6E4F5';
   if (t.indexOf('Salzgitter') > -1 || t.indexOf('Braunschweig') > -1
       || t.indexOf('Uni') > -1 || t.indexOf('Lernen') > -1
@@ -399,5 +409,174 @@ function buildReview_(sh) {
     .setBorder(true, true, true, true, true, true);
   sh.setColumnWidth(1, 300);
   sh.setColumnWidth(2, 560);
+  sh.setFrozenRows(1);
+}
+
+/* ---------- TAB: Trainingsplan ---------- */
+
+function buildTrainingsplan_(sh) {
+  var r = 1;
+
+  function title(t) {
+    sh.getRange(r, 1, 1, 3).merge().setValue(t)
+      .setBackground(THEME.header).setFontColor('#FFFFFF').setFontWeight('bold')
+      .setFontSize(13).setHorizontalAlignment('center');
+    sh.setRowHeight(r, 36); r++;
+  }
+  function section(t) {
+    sh.getRange(r, 1, 1, 3).merge().setValue(t)
+      .setBackground(THEME.total).setFontColor('#FFFFFF').setFontWeight('bold');
+    sh.setRowHeight(r, 28); r++;
+  }
+  function sub(t) {
+    sh.getRange(r, 1, 1, 3).merge().setValue(t)
+      .setBackground(THEME.accent).setFontWeight('bold'); r++;
+  }
+  function exTable(rowsArr) {
+    sh.getRange(r, 1, 1, 3).setValues([['Übung', 'Sätze', 'Wdh']])
+      .setFontWeight('bold').setBackground('#EDEDED'); r++;
+    sh.getRange(r, 1, rowsArr.length, 3).setValues(rowsArr); r += rowsArr.length;
+  }
+  function kv(rowsArr) {
+    for (var i = 0; i < rowsArr.length; i++) {
+      sh.getRange(r, 1).setValue(rowsArr[i][0]).setFontWeight('bold');
+      sh.getRange(r, 2, 1, 2).merge().setValue(rowsArr[i][1]).setWrap(true);
+      r++;
+    }
+  }
+  function gap() { r++; }
+
+  title('🏋️ TRAININGSPLAN — Caner V7');
+
+  section('WOCHENSTRUKTUR');
+  kv([
+    ['Mo', 'Brust + Rücken (Plan 1)'],
+    ['Di', 'Beine + Schulter/Arm Finisher (Plan 2)'],
+    ['Mi', 'Schwimmen 20–30 Min (Technik / Kraul)'],
+    ['Do', 'Push (Plan 3)'],
+    ['Fr', 'Pull + Kreuzheben (Plan 4)'],
+    ['Sa', 'Laufen 30–40 Min Zone 2'],
+    ['So', 'Pause'],
+    ['Täglich morgens', 'Heimtrainer 25–30 Min Zone 2 (nüchtern)'],
+    ['Norweger 4×4', '2×/Woche — Mi nach Schwimmen oder Sa statt Lauf']
+  ]);
+  gap();
+
+  section('PLAN 1 — Brust + Rücken (Mo)');
+  sub('Version A');
+  exTable([
+    ['Klimmzüge', 4, 'max'],
+    ['Seated Cable Row', 3, '8–10'],
+    ['Bankdrücken', 4, '5–6 @ 102,5 kg'],
+    ['Butterfly / Chest Fly', 3, '12–15'],
+    ['Medizinball Slam', 3, '10 explosiv']
+  ]);
+  sub('Version B');
+  exTable([
+    ['Latzug', 4, '8–10'],
+    ['Einarmiges KH Rudern', 3, '8–10'],
+    ['Schrägbank Maschine', 4, '8–10'],
+    ['Kabelzug Flyes', 3, '12–15'],
+    ['Medizinball Chest Pass', 3, '8 explosiv']
+  ]);
+  gap();
+
+  section('PLAN 2 — Beine + Schulter/Arm Finisher (Di)');
+  sub('Version A');
+  exTable([
+    ['Box Jumps', 3, '5 Aktivierung'],
+    ['Trap Bar Deadlift', 4, '5–6'],
+    ['Bulgarischer Split Squat', 3, '8 pro Bein'],
+    ['Beinbizeps Maschine', 3, '10–12'],
+    ['Sprints 20–30m', 5, 'Vollgas'],
+    ['Seitheben', 2, '12–15'],
+    ['Face Pull', 2, '15'],
+    ['Bizeps Curl', 2, '10–12'],
+    ['Trizeps Pushdown', 2, '12']
+  ]);
+  sub('Version B');
+  exTable([
+    ['Box Jumps', 3, '5 Aktivierung'],
+    ['Zercher Kniebeuge', 4, '6–8'],
+    ['Ausfallschritte gehend', 3, '10 pro Bein'],
+    ['Beinpresse', 3, '10–12'],
+    ['Sprints 20–30m', 5, 'Vollgas'],
+    ['Schulterdrücken KH', 2, '10–12'],
+    ['Hintere Schulter Maschine', 2, '15'],
+    ['Hammer Curl', 2, '12'],
+    ['Skull Crushers', 2, '10–12']
+  ]);
+  gap();
+
+  section('PLAN 3 — Push (Do)');
+  sub('Version A');
+  exTable([
+    ['Bankdrücken', 4, '5–6'],
+    ['Landmine Press', 3, '10 pro Seite'],
+    ['Dips Maschine', 3, '8–10'],
+    ['Seitheben', 3, '12–15'],
+    ['Trizeps Pushdown', 3, '12'],
+    ['Schlitten schieben', 4, '20–30m']
+  ]);
+  sub('Version B');
+  exTable([
+    ['Schrägbank Maschine', 4, '8–10'],
+    ['Schulterdrücken KH', 3, '8–10'],
+    ['Dips Maschine', 3, '8–10'],
+    ['Seitheben Kabel', 3, '12–15'],
+    ['Skull Crushers', 3, '10–12'],
+    ['Schlitten ziehen', 4, '20–30m']
+  ]);
+  gap();
+
+  section('PLAN 4 — Pull + Kreuzheben (Fr)');
+  sub('Version A');
+  exTable([
+    ['Trap Bar Deadlift', 4, '4–5 schwer'],
+    ['Klimmzüge', 3, 'max'],
+    ['Seated Cable Row', 3, '8–10'],
+    ['Face Pull', 3, '15'],
+    ['Hammer Curl', 2, '12']
+  ]);
+  sub('Version B');
+  exTable([
+    ['Klassisches Kreuzheben', 4, '4–5 schwer'],
+    ['Latzug', 3, '8–10'],
+    ['T-Bar Row', 3, '8–10'],
+    ['Face Pull', 2, '15'],
+    ['Bizeps Curl LH', 2, '10–12']
+  ]);
+  gap();
+
+  section('CARDIO — DETAIL');
+  kv([
+    ['Heimtrainer (täglich morgens)', '25–30 Min Zone 2 · Buch auf, locker fahren · nüchtern wenn möglich'],
+    ['Schwimmen (Mi)', '20–30 Min · Fokus Technik, kein Wettkampftempo · Kraul lernen und festigen'],
+    ['Laufen (Sa)', '30–40 Min Zone 2 · reden möglich, aber nicht gemütlich · kein Sprint, kein Pace-Druck'],
+    ['Norwegische 4×4 (2×/Woche)', 'Heimtrainer/Fahrrad · 10 Min Warm-Up · 4 × (4 Min Vollgas / 3 Min locker) · 5 Min Cool-Down · beste Tage: Mi nach Schwimmen oder Sa statt Lauf']
+  ]);
+  gap();
+
+  section('PROGRESSIVE OVERLOAD');
+  sh.getRange(r, 1, 1, 3).setValues([['Bereich', 'Regel', '']])
+    .setFontWeight('bold').setBackground('#EDEDED');
+  sh.getRange(r, 2, 1, 2).merge(); r++;
+  var po = [
+    ['Grundübungen', '+2,5 kg wenn alle Sätze sauber'],
+    ['Klimmzüge', '+1 Rep pro Satz als Wochenziel'],
+    ['Cardio', '+5 Min pro Woche maximal'],
+    ['Heimtrainer', 'Erst täglich etablieren, dann Intervalle einbauen']
+  ];
+  for (var p = 0; p < po.length; p++) {
+    sh.getRange(r, 1).setValue(po[p][0]).setFontWeight('bold');
+    sh.getRange(r, 2, 1, 2).merge().setValue(po[p][1]).setWrap(true);
+    r++;
+  }
+
+  sh.getRange(1, 1, r - 1, 3)
+    .setBorder(true, true, true, true, true, true).setVerticalAlignment('middle');
+  sh.setColumnWidth(1, 240);
+  sh.setColumnWidth(2, 80);
+  sh.setColumnWidth(3, 320);
   sh.setFrozenRows(1);
 }
