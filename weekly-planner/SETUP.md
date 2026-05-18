@@ -15,43 +15,54 @@ https://docs.google.com/spreadsheets/d/1WcpaYC1rHPyecMZhWXkCVDJzTBcOxMDwJhrRZHPL
 4. Oben Funktion **`buildPlanner`** auswählen → **Run / Ausführen**
 5. Beim ersten Mal Google-Zugriff bestätigen (dein eigenes Konto)
 
-Fertig — die 5 Tabs sind aufgebaut. `buildPlanner` erneut laufen zu lassen
+Fertig — die 6 Tabs sind aufgebaut. `buildPlanner` erneut laufen zu lassen
 baut alles sauber neu auf (vorher kopieren, wenn du Notizen behalten willst).
 
-## Die 5 Tabs
+## Die 6 Tabs
 
 | Tab | Zweck |
 |-----|-------|
-| **Wochenplan** | **Stundengenau 06:00 → 05:00**, Mo–So. Farbcodiert: 🟨 Gebet · 🟩 Training · 🟪 Agentur · 🟧 Uni/Lernen · 🟦 Werkstudentenjob · ⬜ Schlaf. Echte Wochentermine + Hannover-Gebetszeiten eingebaut. |
+| **Woche (aktuell)** | Diese Woche, stundengenau 06:00 → 05:00. Enthält die **einmaligen** myChicken-Termine: Di Salzgitter, Mi Braunschweig. |
+| **Woche (Vorlage)** | Grundstruktur, gilt **jede Woche**. Kein Reisen, Uni in Hannover, Mi 13:00 myChicken-Call (Google Meet). Diese Vorlage in einen neuen Tab kopieren = Plan für die nächste Woche. |
 | **Trainingsplan** | Wochenstruktur + Plan 1–4 (je Version A/B), Cardio-Detail, Norweger 4×4, Progressive Overload. |
-| **Projekte & Kunden** | Smuuve (1.600 €), Castello (600 €), Mon Frere (500 €) → 2.700 € Bestand. Feste Wochen-Tage je Kunde. |
+| **Projekte & Kunden** | Smuuve (1.600 €), Castello (600 €), Mon Frere (500 €), myChicken. Feste Wochen-Tage je Kunde. |
 | **Daily Wins** | 4 Wins × 7 Tage zum Abhaken. Auto-Score pro Tag (x/4) und pro Win (x/7). |
 | **Wochen-Review** | Sonntagabend-Reflexion + Fokus für die nächste Woche. |
+
+Farbcodierung in beiden Wochen-Tabs: 🟨 Gebet · 🟩 Training · 🟪 Agentur/myChicken/Call · 🟧 Uni/BWL/Fahrt · 🟦 Werkstudentenjob · ⬜ Schlaf.
 
 ## Gebetszeiten Hannover (Diyanet, ~KW21 / Mai)
 
 Fajr **02:53** · Dhuhr **13:22** · Asr **17:38** · Maghrib **21:27** · Yatsi **23:35**
-— im Wochenplan direkt in den Stunden eingetragen. Driften saisonal: in deiner
-App gegenchecken; sag mir Bescheid, dann aktualisiere ich sie.
+— in beiden Wochen-Tabs direkt in den Stunden eingetragen. Driften saisonal: in
+deiner App gegenchecken; sag mir Bescheid, dann aktualisiere ich sie.
 
-## Feste Wochentermine (Stand diesen Monat)
+## Routine (gilt jede Woche — Tab „Woche (Vorlage)")
 
-- **Aufstehen 07:00**, Gym ca. 07:30–08:00 (außer Di + Sa)
-- **Di:** Gym ~10:00 → 12:00 nach Salzgitter → ab 17:00 Uni/BWL lernen
-- **Mi:** Gym morgens → 12:00–16:00 Braunschweig → danach lernen bis abends
-- **Do:** Training = **PUSH** (Plan 3)
-- **Fr:** Pull + Kreuzheben vormittags, Werkstudentenjob **15:30–00:00**
-- **Sa:** Laufen vormittags, Werkstudentenjob **12:00–20:00**
+- **Aufstehen 07:00** + Heimtrainer 25–30 Min Zone 2 (nüchtern), täglich
+- **Mo:** Brust + Rücken · Uni Hannover · Agentur nachmittags
+- **Di:** Beine + Schulter/Arm · Uni Hannover · Agentur nachmittags
+- **Mi:** Schwimmen · Uni Hannover · **13:00 myChicken-Call (Google Meet, ~75 Min)** · Agentur
+- **Do:** Push · Uni Hannover · Agentur nachmittags
+- **Fr:** Pull + Kreuzheben vormittags · Werkstudentenjob **15:30–00:00**
+- **Sa:** Laufen vormittags · Werkstudentenjob **12:00–20:00**
 - **So:** Pause + Wochenplanung + Review
-- Mo/Do (kein Job): Uni vormittags, nachmittags **Dreh / Agentur ~13–19**
-- **Täglich:** Heimtrainer 25–30 Min Zone 2 direkt nach dem Aufstehen (nüchtern)
+
+## Nur diese Woche (Tab „Woche (aktuell)")
+
+- **Di:** statt Uni → **myChicken Salzgitter** (Anfahrt 12:00, einmalig)
+- **Mi:** statt normalem Tag → **myChicken Braunschweig** 12:00–16:00 (einmalig)
+
+Salzgitter/Braunschweig sind **keine** feste Routine — nur diese Woche wegen
+myChicken. Für die nächsten Wochen die Vorlage nutzen.
 
 ## Tageslogik (warum so)
 
-Heimtrainer nüchtern als Start, Krafteinheit/Cardio danach → Uni/Lernen,
-nachmittags Dreh/Agentur. Gebete bleiben die Anker im Tag. An Job-Tagen (Fr/Sa)
-liegt der Lern- und Trainings-Fokus vormittags, weil der Nachmittag/Abend durch
-die Arbeit weg ist. Trainingssplit fest pro Wochentag (Details im Trainings-Tab).
+Heimtrainer nüchtern als Start, Krafteinheit/Cardio danach → Uni Hannover /
+Lernen, nachmittags Agentur. Gebete bleiben die Anker im Tag. An Job-Tagen
+(Fr/Sa) liegt Lern- und Trainings-Fokus vormittags, weil der Nachmittag/Abend
+durch die Arbeit weg ist. Trainingssplit fest pro Wochentag (Details im
+Trainings-Tab).
 
 ## Updaten
 

@@ -1,24 +1,28 @@
 /**
  * BUILT2WIN — Weekly Planner (V7)  ·  Generator
  * --------------------------------------------------------------
- * Baut den kompletten Weekly Planner in 5 Tabs auf:
- *   1) Wochenplan   2) Trainingsplan   3) Projekte & Kunden
- *   4) Daily Wins   5) Wochen-Review
+ * Baut den kompletten Weekly Planner in 6 Tabs auf:
+ *   1) Woche (aktuell)   2) Woche (Vorlage)   3) Trainingsplan
+ *   4) Projekte & Kunden 5) Daily Wins        6) Wochen-Review
+ *
+ * "Woche (aktuell)"  = diese Woche inkl. myChicken Salzgitter (Di)
+ *                       + Braunschweig (Mi) — einmalig.
+ * "Woche (Vorlage)"  = Grundstruktur, gilt jede Woche (kein Reisen,
+ *                       Uni in Hannover, Mi 13:00 myChicken Call).
  *
  * BEDIENUNG (einmalig):
  *   Sheet oeffnen  ->  Erweiterungen  ->  Apps Script
  *   Diesen Code einfuegen  ->  oben "buildPlanner" waehlen  ->  Run
  *
- * Erneut "buildPlanner" laufen lassen = baut sauber neu auf
- * (Inhalte gehen dabei verloren -> vorher kopieren wenn noetig).
+ * Erneut "buildPlanner" laufen lassen = baut sauber neu auf.
  */
 
 var THEME = {
-  header:  '#13293D',  // dunkles Navy
+  header:  '#13293D',
   headerT: '#FFFFFF',
-  anchor:  '#FCEFC7',  // Gebets-Anker (warmes Gold)
-  win:     '#1B998B',  // Daily-Win Gruen
-  accent:  '#E0FBFC',  // helle Sektionsfarbe
+  anchor:  '#FCEFC7',
+  win:     '#1B998B',
+  accent:  '#E0FBFC',
   total:   '#13293D'
 };
 
@@ -26,16 +30,16 @@ function buildPlanner() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   ss.rename('BUILT2WIN — Weekly Planner (V7)');
 
-  var keep = ['Wochenplan', 'Trainingsplan', 'Projekte & Kunden',
-              'Daily Wins', 'Wochen-Review'];
+  var keep = ['Woche (aktuell)', 'Woche (Vorlage)', 'Trainingsplan',
+              'Projekte & Kunden', 'Daily Wins', 'Wochen-Review'];
 
-  buildWochenplan_(freshSheet_(ss, 'Wochenplan'));
+  buildWeekSheet_(freshSheet_(ss, 'Woche (aktuell)'), 'current');
+  buildWeekSheet_(freshSheet_(ss, 'Woche (Vorlage)'), 'template');
   buildTrainingsplan_(freshSheet_(ss, 'Trainingsplan'));
   buildProjekte_(freshSheet_(ss, 'Projekte & Kunden'));
   buildDailyWins_(freshSheet_(ss, 'Daily Wins'));
   buildReview_(freshSheet_(ss, 'Wochen-Review'));
 
-  // Reihenfolge der Tabs setzen + Fremd-Tabs entfernen
   for (var i = 0; i < keep.length; i++) {
     ss.setActiveSheet(ss.getSheetByName(keep[i]));
     ss.moveActiveSheet(i + 1);
@@ -43,12 +47,10 @@ function buildPlanner() {
   ss.getSheets().forEach(function (sh) {
     if (keep.indexOf(sh.getName()) === -1) ss.deleteSheet(sh);
   });
-  ss.setActiveSheet(ss.getSheetByName('Wochenplan'));
+  ss.setActiveSheet(ss.getSheetByName('Woche (aktuell)'));
 
-  SpreadsheetApp.getUi().alert('BUILT2WIN Weekly Planner V7 ist fertig aufgebaut. Yallah. 💪');
+  SpreadsheetApp.getUi().alert('BUILT2WIN Weekly Planner V7 ist fertig aufgebaut. Yallah.');
 }
-
-/* ---------- Helpers ---------- */
 
 function freshSheet_(ss, name) {
   var sh = ss.getSheetByName(name);
@@ -63,9 +65,9 @@ function styleHeader_(sh, range) {
   sh.setRowHeight(range.getRow(), 34);
 }
 
-/* ---------- TAB 1: Wochenplan (stundengenau 06:00 → 05:00) ---------- */
+/* ---------- Woche (aktuell) + Woche (Vorlage) ---------- */
 
-function buildWochenplan_(sh) {
+function buildWeekSheet_(sh, mode) {
   var days = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
   var header = ['Zeit'].concat(days);
 
@@ -77,102 +79,51 @@ function buildWochenplan_(sh) {
   var FA = 'Schlaf · 🕌 Fajr 02:53 (Wecker optional)';
   var HT = 'Aufstehen · Heimtrainer 25–30 Min Zone 2 (nüchtern, Buch)';
 
-  // Index 0 = 06:00 ... Index 23 = 05:00 · Gebetszeiten Hannover (Diyanet, ~KW21)
-  var Mo = [S,
-    HT,
+  var Mo = [S, HT,
     'Gym — Brust + Rücken (Plan 1 · Version A/B)',
     'Gym / Dusche / Frühstück',
-    'Uni: Vorlesung / Übung / Lernen',
-    'Uni: Vorlesung / Übung / Lernen',
+    'Uni Hannover / BWL Lernen',
+    'Uni Hannover / BWL Lernen',
     'Uni / BWL Lernen',
     '🕌 Dhuhr 13:22 · Lunch · Reset',
-    'Dreh / Content-Produktion (Agentur)',
-    'Agentur: Dreh / Schnitt',
-    'Agentur: Smuuve Wochen-Checkup',
+    'Agentur', 'Agentur', 'Agentur',
     '🕌 Asr 17:38 · Agentur',
     'Agentur Abschluss / Puffer',
     'Abendessen / Pause',
-    'BWL Lernen light / Content',
+    'BWL Lernen light',
     '🕌 Maghrib 21:27 · 3 Dankbarkeiten',
     'Freizeit / Prep nächster Tag',
     '🕌 Yatsi 23:35 · Shutdown (Walk·Journal·Read)',
     S, S, FA, S, S, S];
 
-  var Di = [S,
-    HT,
-    'Frühstück / Prep',
-    'Anfahrt Gym',
-    'Gym — Beine + Schulter/Arm Finisher (Plan 2)',
-    'Gym Ende / Dusche / Snack to-go',
-    'Fahrt nach Salzgitter',
-    'Salzgitter (Uni) · 🕌 Dhuhr 13:22 unterwegs',
-    'Salzgitter (Uni)',
-    'Salzgitter (Uni)',
-    'Rückfahrt / Puffer',
-    'Uni: BWL Lernen · 🕌 Asr 17:38',
-    'BWL Lernen',
-    'BWL Lernen / Abendessen',
-    'Lernen light / Agentur Minimal-Check',
-    '🕌 Maghrib 21:27 · 3 Dankbarkeiten',
-    'Shutdown-Vorbereitung',
-    '🕌 Yatsi 23:35 · Shutdown',
-    S, S, FA, S, S, S];
-
-  var Mi = [S,
-    HT,
-    'Schwimmen 20–30 Min (Technik) · ggf. Norweger 4×4',
-    'Dusche / Frühstück',
-    'BWL Lernen / Prep Braunschweig',
-    'Fahrt nach Braunschweig',
-    'Braunschweig (Uni)',
-    'Braunschweig (Uni) · 🕌 Dhuhr 13:22',
-    'Braunschweig (Uni)',
-    'Braunschweig (Uni)',
-    'Rückfahrt',
-    'BWL Lernen · 🕌 Asr 17:38',
-    'BWL Lernen',
-    'Lernen / Abendessen',
-    'Lernen light / Agentur Check',
-    '🕌 Maghrib 21:27 · 3 Dankbarkeiten',
-    'Freizeit',
-    '🕌 Yatsi 23:35 · Shutdown',
-    S, S, FA, S, S, S];
-
-  var Do = [S,
-    HT,
+  var Do = [S, HT,
     'Gym — PUSH (Plan 3 · Version A/B)',
     'Gym / Dusche / Frühstück',
-    'Uni: Vorlesung / Übung / Lernen',
-    'Uni: Vorlesung / Übung / Lernen',
+    'Uni Hannover / BWL Lernen',
+    'Uni Hannover / BWL Lernen',
     'Uni / BWL Lernen',
     '🕌 Dhuhr 13:22 · Lunch · Reset',
-    'Dreh / Content-Produktion (Agentur)',
-    'Agentur: Dreh / Schnitt',
-    'Agentur: Mon Frere Content-Planung',
+    'Agentur', 'Agentur', 'Agentur',
     '🕌 Asr 17:38 · Agentur',
     'Agentur Abschluss / Puffer',
     'Abendessen / Pause',
-    'BWL Lernen light / Content',
+    'BWL Lernen light',
     '🕌 Maghrib 21:27 · 3 Dankbarkeiten',
     'Freizeit / Prep nächster Tag',
     '🕌 Yatsi 23:35 · Shutdown (Walk·Journal·Read)',
     S, S, FA, S, S, S];
 
-  var Fr = [S,
-    HT,
+  var Fr = [S, HT,
     'Gym — Pull + Kreuzheben (Plan 4 · Version A/B)',
     'Gym / Dusche / Frühstück',
-    'BWL Lernen',
-    'BWL Lernen',
-    'Castello: Video Batch-Schnitt',
+    'BWL Lernen', 'BWL Lernen',
+    'Agentur',
     '🕌 Dhuhr 13:22 · Lunch',
-    'Castello / Agentur Abschluss',
-    'Vorbereitung / Fahrt — Job ab 15:30',
+    'Agentur',
+    'Vorbereitung / Fahrt — Work ab 15:30',
     'Werkstudentenjob',
     'Werkstudentenjob · 🕌 Asr 17:38 (kurz)',
-    'Werkstudentenjob',
-    'Werkstudentenjob',
-    'Werkstudentenjob',
+    'Werkstudentenjob', 'Werkstudentenjob', 'Werkstudentenjob',
     'Werkstudentenjob · 🕌 Maghrib 21:27 (kurz)',
     'Werkstudentenjob',
     'Werkstudentenjob · 🕌 Yatsi 23:35 (kurz)',
@@ -185,15 +136,12 @@ function buildWochenplan_(sh) {
     'Aufstehen · Frühstück',
     'Laufen 30–40 Min Zone 2 (oder Norweger 4×4)',
     'Dusche / Vorbereitung',
-    'Fahrt Arbeit',
+    'Fahrt Work',
     'Werkstudentenjob',
     'Werkstudentenjob · 🕌 Dhuhr 13:22 (kurz)',
-    'Werkstudentenjob',
-    'Werkstudentenjob',
-    'Werkstudentenjob',
+    'Werkstudentenjob', 'Werkstudentenjob', 'Werkstudentenjob',
     'Werkstudentenjob · 🕌 Asr 17:38 (kurz)',
-    'Werkstudentenjob',
-    'Werkstudentenjob',
+    'Werkstudentenjob', 'Werkstudentenjob',
     'Feierabend 20:00 · Heimfahrt',
     '🕌 Maghrib 21:27 · Abendessen',
     'Freizeit / Familie',
@@ -213,12 +161,90 @@ function buildWochenplan_(sh) {
     'Puffer / Familie',
     '🕌 Asr 17:38 · Freizeit',
     'Wochen-Review Tab ausfüllen',
-    'Abendessen',
-    'Entspannung',
+    'Abendessen', 'Entspannung',
     '🕌 Maghrib 21:27 · 3 Dankbarkeiten',
     'Freizeit (früh runterfahren)',
     '🕌 Yatsi 23:35 · Shutdown (früh ins Bett für Mo)',
     S, S, FA, S, S, S];
+
+  // Di: Vorlage = normaler Tag · aktuell = myChicken Salzgitter (einmalig)
+  var DiTemplate = [S, HT,
+    'Gym — Beine + Schulter/Arm Finisher (Plan 2 · Version A/B)',
+    'Gym / Dusche / Frühstück',
+    'Uni Hannover / BWL Lernen',
+    'Uni Hannover / BWL Lernen',
+    'Uni / BWL Lernen',
+    '🕌 Dhuhr 13:22 · Lunch · Reset',
+    'Agentur', 'Agentur', 'Agentur',
+    '🕌 Asr 17:38 · Agentur',
+    'Agentur Abschluss / Puffer',
+    'Abendessen / Pause',
+    'BWL Lernen light',
+    '🕌 Maghrib 21:27 · 3 Dankbarkeiten',
+    'Freizeit / Prep nächster Tag',
+    '🕌 Yatsi 23:35 · Shutdown (Walk·Journal·Read)',
+    S, S, FA, S, S, S];
+
+  var DiCurrent = [S, HT,
+    'Frühstück / Prep',
+    'Anfahrt Gym',
+    'Gym — Beine + Schulter/Arm Finisher (Plan 2)',
+    'Gym Ende / Dusche / Snack to-go',
+    'Fahrt nach Salzgitter (myChicken)',
+    'myChicken Salzgitter · 🕌 Dhuhr 13:22',
+    'myChicken Salzgitter',
+    'myChicken Salzgitter',
+    'Rückfahrt / Puffer',
+    'BWL Lernen · 🕌 Asr 17:38',
+    'BWL Lernen',
+    'BWL Lernen / Abendessen',
+    'Agentur Minimal-Check',
+    '🕌 Maghrib 21:27 · 3 Dankbarkeiten',
+    'Shutdown-Vorbereitung',
+    '🕌 Yatsi 23:35 · Shutdown',
+    S, S, FA, S, S, S];
+
+  // Mi: Routine = Schwimmen + 13:00 myChicken Call (Google Meet)
+  //     aktuell = Braunschweig (myChicken) einmalig, Call vor Ort
+  var MiTemplate = [S, HT,
+    'Schwimmen 20–30 Min (Technik) · ggf. Norweger 4×4',
+    'Dusche / Frühstück',
+    'Uni Hannover / BWL Lernen',
+    'Uni Hannover / BWL Lernen',
+    'BWL Lernen / Prep myChicken Call',
+    '🎥 myChicken Call (Google Meet, ~75 Min) · 🕌 Dhuhr 13:22 danach',
+    'myChicken Call — Nachbereitung',
+    'Agentur', 'Agentur',
+    '🕌 Asr 17:38 · Agentur',
+    'Agentur Abschluss / Puffer',
+    'Abendessen / Pause',
+    'BWL Lernen light',
+    '🕌 Maghrib 21:27 · 3 Dankbarkeiten',
+    'Freizeit',
+    '🕌 Yatsi 23:35 · Shutdown',
+    S, S, FA, S, S, S];
+
+  var MiCurrent = [S, HT,
+    'Schwimmen 20–30 Min (Technik) · ggf. Norweger 4×4',
+    'Dusche / Frühstück',
+    'BWL Lernen / Prep Braunschweig',
+    'Fahrt nach Braunschweig (myChicken)',
+    'myChicken Braunschweig',
+    '🎥 myChicken Call/Termin 13:00 (~75 Min) · 🕌 Dhuhr 13:22',
+    'myChicken Braunschweig',
+    'myChicken Braunschweig',
+    'Rückfahrt',
+    'BWL Lernen · 🕌 Asr 17:38',
+    'BWL Lernen',
+    'Lernen / Abendessen',
+    'Agentur Check',
+    '🕌 Maghrib 21:27 · 3 Dankbarkeiten',
+    'Freizeit',
+    '🕌 Yatsi 23:35 · Shutdown',
+    S, S, FA, S, S, S];
+
+  var Di = (mode === 'current') ? DiCurrent : DiTemplate;
+  var Mi = (mode === 'current') ? MiCurrent : MiTemplate;
 
   var cols = [Mo, Di, Mi, Do, Fr, Sa, So];
   var rows = [];
@@ -253,20 +279,22 @@ function buildWochenplan_(sh) {
 
   var lr = rows.length + 3;
   sh.getRange(lr, 1).setValue(
-    '🟨 Gebet/Anker   🟩 Gym/Training   🟪 Agentur/Dreh   '
-    + '🟧 Uni/Lernen/Fahrt   🟦 Werkstudentenjob   ⬜ Schlaf').setFontWeight('bold');
+    '🟨 Gebet/Anker   🟩 Training   🟪 Agentur/myChicken/Call   '
+    + '🟧 Uni/BWL/Fahrt   🟦 Werkstudentenjob   ⬜ Schlaf').setFontWeight('bold');
   sh.getRange(lr + 1, 1).setValue(
     '🕌 Gebetszeiten Hannover (Diyanet, ~KW21): Fajr 02:53 · Dhuhr 13:22 · '
     + 'Asr 17:38 · Maghrib 21:27 · Yatsi 23:35 — driften saisonal, in App prüfen')
     .setFontStyle('italic').setFontColor('#7A7A7A');
-  sh.getRange(lr + 2, 1).setValue(
-    'ℹ️ Uni (Salzgitter Di, Braunschweig Mi) an echten Stundenplan anpassen · '
-    + 'Job: Fr 15:30–00:00, Sa 12:00–20:00 (Stand diesen Monat) · '
-    + 'Training: Heimtrainer täglich morgens, Details im Tab „Trainingsplan“')
+  var modeNote = (mode === 'current')
+    ? 'ℹ️ DIESE WOCHE: Di myChicken Salzgitter + Mi myChicken Braunschweig '
+      + '(einmalig). Routine-Version siehe Tab „Woche (Vorlage)“.'
+    : 'ℹ️ GRUNDSTRUKTUR — gilt jede Woche. Routine: Mi 13:00 myChicken Call '
+      + '(Google Meet). Uni in Hannover. Job: Fr 15:30–00:00, Sa 12:00–20:00. '
+      + 'Diese Vorlage in einen neuen Tab kopieren = Plan für die nächste Woche.';
+  sh.getRange(lr + 2, 1).setValue(modeNote)
     .setFontStyle('italic').setFontColor('#7A7A7A');
 }
 
-/* Faerbt eine Wochenplan-Zelle nach Inhalt */
 function cellColor_(t) {
   if (!t) return '#FFFFFF';
   if (t.indexOf('🕌') > -1) return '#FCEFC7';
@@ -274,16 +302,17 @@ function cellColor_(t) {
   if (t.indexOf('Gym') > -1 || t.indexOf('PUSH') > -1 || t.indexOf('Schwimmen') > -1
       || t.indexOf('Laufen') > -1 || t.indexOf('Heimtrainer') > -1
       || t.indexOf('Norweger') > -1) return '#D6F5D6';
-  if (t.indexOf('Werkstudentenjob') > -1 || t.indexOf('Feierabend') > -1) return '#D6E4F5';
-  if (t.indexOf('Salzgitter') > -1 || t.indexOf('Braunschweig') > -1
-      || t.indexOf('Uni') > -1 || t.indexOf('Lernen') > -1
-      || t.indexOf('Vorlesung') > -1 || t.indexOf('Fahrt') > -1) return '#FDEBD0';
-  if (t.indexOf('Agentur') > -1 || t.indexOf('Dreh') > -1
-      || t.indexOf('Castello') > -1 || t.indexOf('Content') > -1) return '#E8DAEF';
+  if (t.indexOf('Werkstudentenjob') > -1 || t.indexOf('Feierabend') > -1
+      || t.indexOf('Work') > -1) return '#D6E4F5';
+  if (t.indexOf('Agentur') > -1 || t.indexOf('myChicken') > -1
+      || t.indexOf('Call') > -1 || t.indexOf('Dreh') > -1) return '#E8DAEF';
+  if (t.indexOf('Uni') > -1 || t.indexOf('Lernen') > -1 || t.indexOf('BWL') > -1
+      || t.indexOf('Vorlesung') > -1 || t.indexOf('Fahrt') > -1
+      || t.indexOf('Salzgitter') > -1 || t.indexOf('Braunschweig') > -1) return '#FDEBD0';
   return '#FFFFFF';
 }
 
-/* ---------- TAB 2: Projekte & Kunden ---------- */
+/* ---------- Projekte & Kunden ---------- */
 
 function buildProjekte_(sh) {
   var header = ['Kunde', 'Status', 'Budget (€)', 'Wöchentliche Aktion',
@@ -291,7 +320,8 @@ function buildProjekte_(sh) {
   var data = [
     ['Smuuve', 'Bestand', 1600, 'Wochen-Checkup (Automatisierung)', 'Montag', '', 'Größter Kunde — stabil halten'],
     ['Ristorante Castello', 'Bestand', 600, 'Video Batch-Schnitt', 'Freitag', '', 'Wochencontent'],
-    ['Mon Frere', 'Bestand', 500, 'Content-Planung', 'Dienstag', '', '']
+    ['Mon Frere', 'Bestand', 500, 'Content-Planung', 'Dienstag', '', ''],
+    ['myChicken', 'Aktiv', '', 'Call Google Meet', 'Mittwoch 13:00', '', 'Diese Woche: Di Salzgitter + Mi Braunschweig (einmalig)']
   ];
 
   sh.getRange(1, 1, 1, header.length).setValues([header]);
@@ -314,13 +344,13 @@ function buildProjekte_(sh) {
   sh.getRange(1, 1, totalRow, header.length)
     .setBorder(true, true, true, true, true, true).setVerticalAlignment('middle');
   sh.setColumnWidth(1, 180); sh.setColumnWidth(2, 90); sh.setColumnWidth(3, 100);
-  sh.setColumnWidth(4, 230); sh.setColumnWidth(5, 110); sh.setColumnWidth(6, 140);
-  sh.setColumnWidth(7, 230);
+  sh.setColumnWidth(4, 230); sh.setColumnWidth(5, 130); sh.setColumnWidth(6, 140);
+  sh.setColumnWidth(7, 260);
   sh.getRange(2, 3, data.length + 1, 1).setNumberFormat('#,##0 €');
   sh.setFrozenRows(1);
 }
 
-/* ---------- TAB 3: Daily Wins ---------- */
+/* ---------- Daily Wins ---------- */
 
 function buildDailyWins_(sh) {
   var days = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
@@ -345,14 +375,13 @@ function buildDailyWins_(sh) {
   var scoreRow = wins.length + 2;
   sh.getRange(scoreRow, 1).setValue('TAGESSCORE').setFontWeight('bold');
   for (var c = 0; c < 7; c++) {
-    var col = String.fromCharCode(66 + c); // B..H
+    var col = String.fromCharCode(66 + c);
     sh.getRange(scoreRow, 2 + c)
       .setFormula('=COUNTIF(' + col + '2:' + col + (wins.length + 1) + ',TRUE)&" / 4"');
   }
   sh.getRange(scoreRow, 1, 1, header.length)
     .setBackground(THEME.accent).setFontWeight('bold');
 
-  // Gruen einfaerben wenn Haekchen gesetzt
   var cbRange = sh.getRange(2, 2, wins.length, 7);
   var rule = SpreadsheetApp.newConditionalFormatRule()
     .whenFormulaSatisfied('=B2=TRUE')
@@ -376,7 +405,7 @@ function buildDailyWins_(sh) {
   hint.setFontStyle('italic').setFontColor('#7A7A7A');
 }
 
-/* ---------- TAB 4: Wochen-Review ---------- */
+/* ---------- Wochen-Review ---------- */
 
 function buildReview_(sh) {
   sh.getRange(1, 1).setValue('🔁 WOCHEN-REVIEW (Sonntagabend, 10 Min)');
@@ -388,7 +417,7 @@ function buildReview_(sh) {
     '✅ Was lief diese Woche richtig gut?',
     '⚠️ Was lief nicht / größtes Hindernis?',
     '🧠 BWL-Fortschritt — konkret, was geschafft?',
-    '💼 Kunden ausgeliefert? (Smuuve / Castello / Mon Frere)',
+    '💼 Kunden ausgeliefert? (Smuuve / Castello / Mon Frere / myChicken)',
     '🕌 Spiritueller Check — alle Gebete konsequent?',
     '💪 Training — wie viele Einheiten?',
     '🎯 1 Hauptfokus nächste Woche',
@@ -407,12 +436,12 @@ function buildReview_(sh) {
 
   sh.getRange(1, 1, prompts.length + 1, 2)
     .setBorder(true, true, true, true, true, true);
-  sh.setColumnWidth(1, 300);
+  sh.setColumnWidth(1, 320);
   sh.setColumnWidth(2, 560);
   sh.setFrozenRows(1);
 }
 
-/* ---------- TAB: Trainingsplan ---------- */
+/* ---------- Trainingsplan ---------- */
 
 function buildTrainingsplan_(sh) {
   var r = 1;
