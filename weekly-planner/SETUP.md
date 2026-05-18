@@ -22,17 +22,33 @@ baut alles sauber neu auf (vorher kopieren, wenn du Notizen behalten willst).
 
 | Tab | Zweck |
 |-----|-------|
-| **Wochenplan** | Mo–So × Tagesblöcke. Gebete = Anker (gold). Gym morgens, BWL-Deep-Work vormittags, Uni nachmittags, Agentur spätnachmittags. |
+| **Wochenplan** | **Stundengenau 06:00 → 05:00**, Mo–So. Farbcodiert: 🟨 Gebet · 🟩 Gym · 🟪 Agentur · 🟧 Uni/Lernen · 🟦 Werkstudentenjob · ⬜ Schlaf. Echte Wochentermine eingebaut (s.u.). |
 | **Projekte & Kunden** | Smuuve (1.600 €), Castello (600 €), Mon Frere (500 €) → 2.700 € Bestand. Feste Wochen-Tage je Kunde. |
 | **Daily Wins** | 4 Wins × 7 Tage zum Abhaken. Auto-Score pro Tag (x/4) und pro Win (x/7). |
 | **Wochen-Review** | Sonntagabend-Reflexion + Fokus für die nächste Woche. |
 
+## Feste Wochentermine (Stand diesen Monat)
+
+- **Aufstehen 07:00**, Gym ca. 07:30–08:00 (außer Di + Sa)
+- **Di:** Gym ~10:00 → 12:00 nach Salzgitter → ab 17:00 Uni/BWL lernen
+- **Mi:** Gym morgens → 12:00–16:00 Braunschweig → danach lernen bis abends
+- **Do:** Training = **PUSH**
+- **Fr:** Werkstudentenjob **15:30–00:00** (vormittags Gym + Lernen + Castello-Schnitt)
+- **Sa:** Werkstudentenjob **12:00–20:00** (vormittags Gym)
+- **So:** Rest + Wochenplanung + Review
+- Mo/Do (kein Job): Uni vormittags, nachmittags **Dreh / Agentur ~13–19**
+
 ## Tageslogik (warum so)
 
-Gym zuerst pusht die Konzentration → danach immer noch **vormittags** der
-BWL-Deep-Work-Block (3. Versuch). Körperlicher + mentaler Win vor 12 Uhr.
-Uni-Vorlesungen liegen nachmittags (passiver Input, eh durch Stundenplan fix),
-Agentur spätnachmittags. Gebetszeiten saisonal an deine lokale App anpassen.
+Gym zuerst pusht die Konzentration → danach Uni/Lernen, nachmittags Dreh/Agentur.
+Gebete bleiben die Anker im Tag. An Job-Tagen (Fr/Sa) liegt der Lern-Fokus
+vormittags, weil der Nachmittag/Abend durch die Arbeit weg ist.
+
+## Trainingsplan
+
+Gym-Slots sind aktuell „Training (lt. Trainingsplan)“, Do = PUSH. Schick mir
+deinen vollständigen Split — dann trage ich pro Tag die konkrete Einheit ein
+und lege optional einen eigenen **Trainingsplan-Tab** an.
 
 ## Updaten
 
